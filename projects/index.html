@@ -65,6 +65,23 @@
 
 <p>Sometimes I have some free time and urgent desire to code something different. I really like to do experiments and learn new stuff. And sometimes small experiment evolves into a project. I do also have a <a href="https://github.com/megaboich">Github profile</a>.</p>
 <hr>
+<h3 id="yet-another-tuner">Yet another tuner</h3>
+<img class="project-card-img" src="/posts/2026-08-15-Yet-Another-Tuner/images/tuner-light-desktop.png">
+</img>
+<p><a href="https://github.com/megaboich/yet-another-tuner">Yet another tuner</a> is a guitar tuner which works directly in web browser. I was tired of tuner apps on my phone with ads, and also I wanted to explore Web Audio APIs on something real.</p>
+<p>Sound from the microphone is processed locally in an <code>AudioWorklet</code>, separately from the UI thread, and never leaves the device. Pitch detection is done by the McLeod Pitch Method implemented in plain JavaScript without any runtime dependencies.</p>
+<p>The first prototype was written by me in 2025, and in August 2026 the app was completed by AI (<a href="https://openai.com/index/gpt-5-6/">GPT-5.6 Sol</a> in <a href="https://opencode.ai">OpenCode</a>) under my guidance. More details about this story and implementation are in the <a href="/posts/2026-08-15-Yet-Another-Tuner/">blog post</a>.</p>
+<p>Features:</p>
+<ul>
+<li>Automatic string detection or manual string lock.</li>
+<li>Tuning meter in cents and pitch history graph.</li>
+<li>Standard and alternate tunings, or a custom one.</li>
+<li>A4 calibration, capo, and reference tone.</li>
+<li>Light and dark themes, left-handed layout.</li>
+<li>Works offline and can be installed as an app (PWA).</li>
+</ul>
+<p>Demo is deployed here: <a href="https://olekboiko.com/yet-another-tuner/">https://olekboiko.com/yet-another-tuner/</a>.</p>
+<hr>
 <h3 id="linked-graph">Linked graph</h3>
 <img class="project-card-img" src="https://github.com/megaboich/linked-graph/raw/master/docs/linked-graph-demo-optimized.gif">
 </img>
