@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Yet another guitar tuner in web browser</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Yet another guitar tuner in web browser</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">October 3, 2026</span>
+            
+            
+            <span class="tag">8 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">JavaScript</span>
+            
+            <span class="tag">Web Audio</span>
+            
+            <span class="tag">Guitar</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<p>I like playing the guitar from time to time, and every time before playing I need a tuner. Usually it is an app on my phone, and I tried quite a few of them. The story was always the same: a full-screen ad right at the moment when I want to tune, a banner over the needle, or a &quot;Pro&quot; subscription for very basic features. All I wanted is to pluck a string and see if it is flat or sharp.</p>
+<p>At the same time I had a lot of interest in Web Audio APIs and wanted to try them on something real. So, when a bright idea came into my mind, I started to write my own tuner. It works directly in web browser, has no ads and no backend, and sound from the microphone never leaves the device.</p>
+<p>You can try it here: <a href="https://olekboiko.com/yet-another-tuner/">olekboiko.com/yet-another-tuner</a>.<!--cut--></p>
+<p><img src="images/tuner-light-desktop.png" alt="Tuner in light theme on desktop"></p>
+<p>Here is a list of requirements that are implemented now:</p>
+<ol>
+<li>Automatic detection of the string being played, or the possibility to lock one string manually.</li>
+<li>Tuning meter in cents and a pitch history graph, so it is visible how the note settles.</li>
+<li>Several tunings: Standard, Drop D, DADGAD, Open G, Open D, half and full step down, or a custom one.</li>
+<li>A4 calibration, capo, and reference tone.</li>
+<li>Light and dark themes, and also a left-handed layout.</li>
+<li>Works offline and can be installed on the phone as an app (PWA).</li>
+<li>No runtime dependencies, only plain JavaScript. Vite is used just for building.</li>
+</ol>
+<p><img src="images/tuner-dark-mobile.png" alt="Tuner in dark theme on mobile"></p>
+<h2 id="implementation-story">Implementation story</h2>
+<p>This project turned out to be quite long lasting, and it has two quite different parts.</p>
+<p>The first part was done in March 2025, all manually by me, in the most straightforward way. For the pitch detection I took the <a href="https://aubio.org/">aubio</a> library compiled to WebAssembly, and the audio was processed by <code>ScriptProcessorNode</code> on the main thread. It worked, but <code>ScriptProcessorNode</code> is deprecated, and running audio processing on the same thread with UI is not a great idea. So in April 2025 I moved the processing into an <code>AudioWorklet</code> and added the pitch chart.</p>
+<p>And that was the point where I had a minimal working prototype. It was showing the note and it was possible to tune the guitar with it, but the itching interest was gone, and I abandoned the project for more than a year.</p>
+<p>The second part happened in August 2026. At that time I had some interest in the latest advances in AI assistants, especially in the <a href="https://openai.com/index/gpt-5-6/">GPT-5.6 Sol</a> model, which was just released in July 2026. Also I wanted to try <a href="https://opencode.ai">OpenCode</a>, an AI coding harness which was new for me. My half-finished tuner looked like a perfect playground for this experiment. So the rest of the app was completed by AI under my guidance: I was explaining what I want, reviewing the results, testing on my guitars and deciding what to do next.</p>
+<p>During this second part aubio was replaced with a pitch detector written in plain JavaScript, everything got covered with tests using real guitar recordings, and the app got settings, themes and offline mode. Below are the most interesting technical details.</p>
+<h2 id="audio-graph">Audio graph</h2>
+<p>Web Audio API works like a graph: you connect audio nodes together, and the browser pushes sound through them. For the tuner the graph is very simple:</p>
+<pre><code class="language-text">microphone -&gt; MediaStreamSource -&gt; AudioWorklet (pitch detection) -&gt; silent gain -&gt; destination
+</code></pre>
+<p>First of all it is necessary to ask for the microphone. By default, browsers configure the microphone for voice calls: echo cancellation, noise suppression and automatic gain control. This is great for calls, but for a tuner it only spoils the signal, so all of it should be switched off:</p>
+<pre><code class="language-js">const stream = await navigator.mediaDevices.getUserMedia({
+  audio: {
+    autoGainControl: false,
+    channelCount: 1,
+    echoCancellation: false,
+    noiseSuppression: false
+  }
+});
+</code></pre>
+<p>The last node in the graph is a gain node with volume <code>0</code>. The browser processes the graph only when it is connected to an output, and this silent gain keeps it running without playing the guitar back through the speakers.</p>
+<h2 id="audioworklet">AudioWorklet</h2>
+<p><code>AudioWorklet</code> is code that runs on the browser's real-time audio thread, separately from the page. It receives the audio in small blocks of 128 samples. The processor itself is quite small:</p>
+<pre><code class="language-js">class TunerPitchProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.pitchDetector = new MpmPitchDetector(sampleRate);
+  }
+
+  process(inputs) {
+    const channel = inputs[0]?.[0];
+    if (channel &amp;&amp; this.pitchDetector.push(channel)) {
+      this.port.postMessage({
+        type: &quot;estimate&quot;,
+        estimate: {
+          frequency: this.pitchDetector.frequency,
+          confidence: this.pitchDetector.confidence,
+          rms: this.pitchDetector.rms
+        }
+      });
+    }
+    return true;
+  }
+}
+
+registerProcessor(&quot;tuner-pitch-processor&quot;, TunerPitchProcessor);
+</code></pre>
+<p>Only three numbers go back to the page: frequency, clarity and loudness. Raw audio stays inside the worklet.</p>
+<p>There is one important thing about the worklet: it has real-time deadlines. If <code>process()</code> is too slow, the audio starts to glitch. So the detector is careful with memory. All buffers are typed arrays that are created once and then reused. The ring buffer for samples is &quot;mirrored&quot;: each sample is written twice, at index <code>i</code> and at <code>i + windowSize</code>. This way the latest window of 2048 samples is always one continuous piece of memory and can be read without copying. Also, the analysis does not run on every block of 128 samples, only once per 512 new samples.</p>
+<p>One more problem was with deployment. The worklet is loaded by its own URL with <code>audioWorklet.addModule()</code>, so it should be a separate file with all its imports included. With a simple Vite <code>?url</code> import the file was copied as is, without its imports, and it did not work after deployment. The fix was to import it as <code>?worker&amp;url</code>, so Vite bundles the worklet with its dependencies.</p>
+<h2 id="mcleod-pitch-method">McLeod Pitch Method</h2>
+<p>The first idea for pitch detection is usually FFT: find the strongest frequency and that's it. Unfortunately with a guitar this does not work well. A plucked string is not a clean sine wave, it is a fundamental frequency plus a lot of harmonics. On the low E string the second harmonic (about 164.8 Hz) is often louder than the fundamental (82.4 Hz), and a naive tuner shows an E one octave higher.</p>
+<p>So the new detector implements the <strong>McLeod Pitch Method</strong> (MPM), described in the paper <a href="https://www.cs.otago.ac.nz/graphics/Geoff/tartini/papers/A_Smarter_Way_to_Find_Pitch.pdf">&quot;A Smarter Way to Find Pitch&quot;</a> by Philip McLeod and Geoff Wyvill. The idea is simple: take the waveform, shift a copy of it to the right, and check how well the two copies match. When the shift is equal to one period of the note, peaks are aligned with peaks. This is calculated by the Normalized Square Difference Function:</p>
+<pre><code class="language-text">NSDF(τ) = 2 × Σ x[j]·x[j+τ] / Σ (x[j]² + x[j+τ]²)
+</code></pre>
+<p>The result is between -1 and 1, and a peak close to 1 means a clear repetition. The trick against harmonics is that MPM does not take the highest peak, it takes the <em>earliest</em> peak that is at least 85% as high as the best one. Then a small parabolic interpolation around the peak gives a fractional period, and <code>frequency = sampleRate / period</code>. This fractional part is really important, because an error of a whole sample can be several cents.</p>
+<p>Before the analysis, the signal also goes through a light 80 Hz high-pass filter, which removes rumble and handling noise.</p>
+<h2 id="from-frequency-to-a-3-cents-flat">From frequency to &quot;A, 3 cents flat&quot;</h2>
+<p>The raw frequency is still quite jumpy, so on the main thread there are a few more steps:</p>
+<ol>
+<li>Reject windows that are too quiet or not periodic enough.</li>
+<li>Smooth the value. A short median filter removes single outliers, and then exponential smoothing works in logarithmic frequency, because we hear pitch in ratios, not in hertz.</li>
+<li>Choose the string. Each string is compared with the measured pitch and with its first harmonics, and fundamentals get a small preference.</li>
+<li>Stabilize. A new string should win several times in a row before the display switches to it.</li>
+</ol>
+<p>The cents are calculated with the usual formula <code>cents = 1200 × log2(measured / target)</code>.</p>
+<p>The last step was the hardest. The pick attack and the decay of a string can for a short moment look like another string or another octave, and it was visible as a flickering note name.</p>
+<h2 id="testing-with-real-guitars">Testing with real guitars</h2>
+<p>Synthetic sine waves are very easy to detect, so unit tests alone were too optimistic. To get real data I recorded each open string on two guitars with Voice Memos on my Mac. One more recording plays all six strings one after another, about three seconds each.</p>
+<p>A Playwright browser test plays these recordings through the real worklet and UI, remembers every note change on the screen, and expects exactly this:</p>
+<pre><code class="language-text">E2 -&gt; A2 -&gt; D3 -&gt; G3 -&gt; B3 -&gt; E4
+</code></pre>
+<p>Any extra change is a flicker and the test fails. This test indeed caught a real problem: with a stricter peak threshold the detector skipped the fundamental while the string was fading out and showed the wrong octave.</p>
+<h2 id="offline-mode">Offline mode</h2>
+<p>At last, the tuner is a Progressive Web App. A small Vite plugin generates a list of all built files with a version hash, and a service worker caches them. After the first visit it can be installed on the home screen and works without network at all. When online, the page is loaded from the network first, so new versions still arrive.</p>
+<h2 id="summary">Summary</h2>
+<p>It was a nice and interesting project. Web Audio API turned out to be very powerful: <code>getUserMedia</code>, an <code>AudioWorklet</code> and a few typed arrays are enough to build a tuner that works with a real guitar in a real room. And finally I have a tuner without ads.</p>
+<p>It was also an interesting experience to finish a project together with an AI assistant. The prototype that I abandoned more than a year ago is now a complete app with tests, settings and offline mode.</p>
+<p>If you play guitar, give it a try: <a href="https://olekboiko.com/yet-another-tuner/">olekboiko.com/yet-another-tuner</a>.</p>
+<p>In case you are interested, source code is available on <a href="https://github.com/megaboich/yet-another-tuner">Github</a>, and there is also a <a href="https://github.com/megaboich/yet-another-tuner/blob/main/docs/pitch-analysis.md">detailed description of the pitch analysis</a>.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
