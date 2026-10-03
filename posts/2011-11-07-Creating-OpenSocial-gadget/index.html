@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Creating OpenSocial gadget with Asp.Net MVC</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,61 +40,55 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Creating OpenSocial gadget with Asp.Net MVC</h1>
+            <div class="content">
+<h1 class="title">Creating OpenSocial gadget with Asp.Net MVC</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                November 7, 2011
-            </span>
-            <span class="tag">
-                7
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">November 7, 2011</span>
+            
+            
+            <span class="tag">7 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                OpenSocial
-            </span>
-            <span class="tag">
-                C#
-            </span>
-            <span class="tag">
-                Asp.Net MVC
-            </span>
+            
+            <span class="tag">OpenSocial</span>
+            
+            <span class="tag">C#</span>
+            
+            <span class="tag">Asp.Net MVC</span>
+            
         </div>
     </div>
 
     <br />
-</div><p><a href="http://docs.opensocial.org/display/OS/Home">OpenSocial</a> is a great standard that allows implement Web-gadgets for various web-sites and portals (they are called OpenSocial Containers). Initially developed for Social Networks and driven by Google and <a href="http://code.google.com/apis/gadgets/">Google gadgets</a> this standard is also becoming popular in corporate web portals sector.<!--cut--> Currently such vendors as IBM, SAP, Cisco and many others have support for OpenSocial in theirs corporate products. All this success simply explained by the fact that OpenSocial allows quickly integrate gadgets to various of host portals.</p>
+    
+</div>
+
+<p><a href="http://docs.opensocial.org/display/OS/Home">OpenSocial</a> is a great standard that allows implement Web-gadgets for various web-sites and portals (they are called OpenSocial Containers). Initially developed for Social Networks and driven by Google and <a href="http://code.google.com/apis/gadgets/">Google gadgets</a> this standard is also becoming popular in corporate web portals sector.<!--cut--> Currently such vendors as IBM, SAP, Cisco and many others have support for OpenSocial in theirs corporate products. All this success simply explained by the fact that OpenSocial allows quickly integrate gadgets to various of host portals.</p>
 <p>I will use Simple RSS reader Web application that I have created in previous article. I am going to implement OpenSocial integration, so I will able to put my gadget with RSS to any OpenSocial container.</p>
 <p>Requirements to gadget:</p>
 <ol>
@@ -114,18 +102,18 @@
 <p>First create new controller action for widget:</p>
 <pre><code class="language-csharp">public ActionResult Widget(string feedUrl, int topCount)
 {
-    return View(new RssWidgetModel
-    {
-        FeedSource = feedUrl,
-        TopCount = topCount
-    });
+	return View(new RssWidgetModel
+	{
+		FeedSource = feedUrl,
+		TopCount = topCount
+	});
 }
 </code></pre>
 <p>Then create view:</p>
 <pre><code class="language-csharp">@model SimpleRssReader.Models.RssWidgetModel
 @{
-    Layout = null;
-    var AbsoluteRootUrlPart = Request.Url.GetLeftPart(UriPartial.Authority);
+	Layout = null;
+	var AbsoluteRootUrlPart = Request.Url.GetLeftPart(UriPartial.Authority);
 }
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js&quot;&gt;&lt;/script&gt;
@@ -133,48 +121,49 @@
 &lt;link href=&quot;@(AbsoluteRootUrlPart + Url.Content(&quot;~/Content/HeadlinesRss.css&quot;))&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
 &lt;div id=&quot;rss-widget-content&quot;&gt;
-    &lt;div class=&quot;loading-indicator&quot;&gt;
-        &lt;img style=&quot;margin-top:60px&quot; src=&quot;@(AbsoluteRootUrlPart + Url.Content(&quot;~/Content/images/ajax-loader.gif&quot;))&quot; /&gt;
-    &lt;/div&gt;
+	&lt;div class=&quot;loading-indicator&quot;&gt;
+		&lt;img style=&quot;margin-top:60px&quot; src=&quot;@(AbsoluteRootUrlPart + Url.Content(&quot;~/Content/images/ajax-loader.gif&quot;))&quot; /&gt;
+	&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;script type=&quot;text/javascript&quot;&gt;
 
-    $(function () {
-        var serviceUrl = &#39;@Html.Raw(AbsoluteRootUrlPart + Url.Action(&quot;ViewHeadlines&quot;))&#39;;
+	$(function () {
+		var serviceUrl = '@Html.Raw(AbsoluteRootUrlPart + Url.Action(&quot;ViewHeadlines&quot;))';
 
-        //Default values
-        var gadgetPrefs = {
-            feedSource: &#39;@Html.Raw(Model.FeedSource)&#39;,
-            topCount: &#39;@Model.TopCount&#39;
-        };
+		//Default values
+		var gadgetPrefs = {
+			feedSource: '@Html.Raw(Model.FeedSource)',
+			topCount: '@Model.TopCount'
+		};
 
-        var userPrefs = $.widgetHelper.getUserProperties([&#39;feedSource&#39;, &#39;topCount&#39;]);
-        if (userPrefs != null) {
-            $.extend(gadgetPrefs, userPrefs);
-        }
+		var userPrefs = $.widgetHelper.getUserProperties(['feedSource', 'topCount']);
+		if (userPrefs != null) {
+			$.extend(gadgetPrefs, userPrefs);
+		}
 
-        serviceUrl +=
-             &quot;?feedUrl=&quot; + encodeURIComponent(gadgetPrefs.feedSource)
-            + &quot;&amp;topCount=&quot; + encodeURIComponent(gadgetPrefs.topCount);
+		serviceUrl +=
+			 &quot;?feedUrl=&quot; + encodeURIComponent(gadgetPrefs.feedSource)
+			+ &quot;&amp;topCount=&quot; + encodeURIComponent(gadgetPrefs.topCount);
 
-        $.ajax({
-            url: serviceUrl,
-            dataType: &quot;jsonp&quot;,
-            crossDomain: true,
-            success: function (data) {
-                $(&#39;#rss-widget-content&#39;).html(data.markup);
-                $.widgetHelper.adjustHeight();
+		$.ajax({
+			url: serviceUrl,
+			dataType: &quot;jsonp&quot;,
+			crossDomain: true,
+			success: function (data) {
+				$('#rss-widget-content').html(data.markup);
+				$.widgetHelper.adjustHeight();
 
-                $.widgetHelper.setTitle($(&quot;#items&quot;).attr(&#39;data-title&#39;));
-            }
-        });
+				$.widgetHelper.setTitle($(&quot;#items&quot;).attr('data-title'));
+			}
+		});
 
-        $(&#39;body&#39;).bind(&#39;imageLoad&#39;, function () {
-            $.widgetHelper.adjustHeight();
-        });
-    });
+		$('body').bind('imageLoad', function () {
+			$.widgetHelper.adjustHeight();
+		});
+	});
 &lt;/script&gt;
+
 </code></pre>
 <p>Initialy only loading animation is rendered and on <code>documentready</code> event following script actions will be executed:</p>
 <ol>
@@ -182,7 +171,7 @@
 <li>Load user settings with <code>WidgetHelper</code>.</li>
 <li>Build url to dynamic Rss content and performing Ajax to query it.</li>
 <li>On success callback retrieved HTML inserted to DOM instead of loading animation. Also called some integration functions that will be implemented later to adjust gadget height and title.</li>
-<li>Notice that all url&#39;s used in view are rendered in absolute scheme. Generally this is not required for widget used in iframe, but for OpenSocial it matters a lot, and there are some reasons for that. Later when our gadget will be integrated to 3rd party container, just open View source in browser and discover how container did rendering job. Scripts and styles will be minimized and combined, and more important all view will be served from containers server. So, for calling our resources and ajax handlers we need to specify absolute urls.</li>
+<li>Notice that all url's used in view are rendered in absolute scheme. Generally this is not required for widget used in iframe, but for OpenSocial it matters a lot, and there are some reasons for that. Later when our gadget will be integrated to 3rd party container, just open View source in browser and discover how container did rendering job. Scripts and styles will be minimized and combined, and more important all view will be served from containers server. So, for calling our resources and ajax handlers we need to specify absolute urls.</li>
 </ol>
 <p>I included jQuery to perform Ajax and DOM manipulations. Also there is custom script <code>WidgetHelper.js</code> to perform widget manipulation. This is facade for OpenSocial integration and it provides stubs when OpenSocial is not available.</p>
 <pre><code class="language-javascript">(function ($, undefined) {
@@ -219,39 +208,39 @@
   });
 })(jQuery);
 </code></pre>
-<p>In next step let&#39;s create controller action for dynamic Rss content:</p>
+<p>In next step let's create controller action for dynamic Rss content:</p>
 <pre><code class="language-csharp">[JsonpMarkup]
 public ActionResult ViewHeadlines(string feedUrl, int topCount)
 {
-    var rssService = new RssReaderService();
-    var model = rssService.ReadFeed(feedUrl, topCount);
+	var rssService = new RssReaderService();
+	var model = rssService.ReadFeed(feedUrl, topCount);
 
-    return View(model);
+	return View(model);
 }
 </code></pre>
 <p>And view:</p>
 <pre><code class="language-csharp">@model SimpleRssReader.Models.RssFeedContent
 @{
-    Layout = null;
+	Layout = null;
 }
 
 &lt;div id=&quot;items&quot; data-title=&quot;@Model.FeedTitle&quot;&gt;
-    &lt;ul&gt;
-    @foreach (var rssItem in Model.Articles)
-    {
-        &lt;li&gt;
-            &lt;h2&gt;
-                &lt;a href=&quot;@rssItem.Link&quot; target=&quot;_blank&quot;&gt;
-                    @if (!string.IsNullOrEmpty(rssItem.TitleImage))
-                    {
-                        &lt;img src=&quot;@rssItem.TitleImage&quot; onload=&quot;$(&#39;body&#39;).trigger(&#39;imageLoad&#39;);&quot; /&gt;
-                    }
-                    @rssItem.Title
-                &lt;/a&gt;
-            &lt;/h2&gt;
-        &lt;/li&gt;
-    }
-    &lt;/ul&gt;
+	&lt;ul&gt;
+	@foreach (var rssItem in Model.Articles)
+	{
+		&lt;li&gt;
+			&lt;h2&gt;
+				&lt;a href=&quot;@rssItem.Link&quot; target=&quot;_blank&quot;&gt;
+					@if (!string.IsNullOrEmpty(rssItem.TitleImage))
+					{
+						&lt;img src=&quot;@rssItem.TitleImage&quot; onload=&quot;$('body').trigger('imageLoad');&quot; /&gt;
+					}
+					@rssItem.Title
+				&lt;/a&gt;
+			&lt;/h2&gt;
+		&lt;/li&gt;
+	}
+	&lt;/ul&gt;
 &lt;/div&gt;
 </code></pre>
 <p>At this point after compiling and fixing some minor problems there should be available working widget at url like this:</p>
@@ -260,7 +249,7 @@ public ActionResult ViewHeadlines(string feedUrl, int topCount)
 <p>And you should get view like this in the browser:
 <img src="initialWidgetView_4.png" alt=""></p>
 <h2 id="create-gadget-xml">Create Gadget XML.</h2>
-<p>OpenSocial Gadget should be described in XML according to specification. To achieve this let&#39;s create Controller and View.</p>
+<p>OpenSocial Gadget should be described in XML according to specification. To achieve this let's create Controller and View.</p>
 <p>Controller code:</p>
 <pre><code class="language-csharp">using System;
 using System.Collections.Generic;
@@ -271,42 +260,42 @@ using SimpleRssReader.Models;
 
 namespace SimpleRssReader.Controllers
 {
-    public class OpenSocialController : Controller
-    {
-        [HttpGet]
-        public ActionResult RssFeedGadget(
-            string feed = &quot;http://news.google.com/news?topic=b&amp;output=rss&quot;,
-            int top = 10)
-        {
-            ViewBag.FeedSource = feed;
-            ViewBag.TopCount = top;
-            return View(&quot;RssFeedGadget&quot;);
-        }
-    }
+	public class OpenSocialController : Controller
+	{
+		[HttpGet]
+		public ActionResult RssFeedGadget(
+			string feed = &quot;http://news.google.com/news?topic=b&amp;output=rss&quot;,
+			int top = 10)
+		{
+			ViewBag.FeedSource = feed;
+			ViewBag.TopCount = top;
+			return View(&quot;RssFeedGadget&quot;);
+		}
+	}
 }
 </code></pre>
 <p>And this is View:</p>
 <pre><code class="language-csharp">@using System;
 @{
-    Layout = null;
+	Layout = null;
 }
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;Module&gt;
-    &lt;ModulePrefs title=&quot;Rss Feed Widget&quot; author=&quot;Oleksandr Boiko&quot; author_email=&quot;mega.boich@gmail.com&quot; height=&quot;160&quot;&gt;
-        &lt;Require feature=&quot;opensocial-0.9&quot; /&gt;
-        &lt;Require feature=&quot;dynamic-height&quot;/&gt;
-        &lt;Require feature=&quot;settitle&quot;/&gt;
-    &lt;/ModulePrefs&gt;
-    &lt;UserPref name=&quot;feedSource&quot; display_name=&quot;Feed Source&quot; default_value=&quot;http://news.google.com/news?topic=b&amp;amp;output=rss&quot;/&gt;
-    &lt;UserPref name=&quot;topCount&quot; display_name=&quot;Top Count&quot; default_value=&quot;10&quot;/&gt;
-    &lt;Content type=&quot;html&quot;&gt;
+	&lt;ModulePrefs title=&quot;Rss Feed Widget&quot; author=&quot;Oleksandr Boiko&quot; author_email=&quot;mega.boich@gmail.com&quot; height=&quot;160&quot;&gt;
+		&lt;Require feature=&quot;opensocial-0.9&quot; /&gt;
+		&lt;Require feature=&quot;dynamic-height&quot;/&gt;
+		&lt;Require feature=&quot;settitle&quot;/&gt;
+	&lt;/ModulePrefs&gt;
+	&lt;UserPref name=&quot;feedSource&quot; display_name=&quot;Feed Source&quot; default_value=&quot;http://news.google.com/news?topic=b&amp;amp;output=rss&quot;/&gt;
+	&lt;UserPref name=&quot;topCount&quot; display_name=&quot;Top Count&quot; default_value=&quot;10&quot;/&gt;
+	&lt;Content type=&quot;html&quot;&gt;
 &lt;![CDATA[
-    @Html.Action(&quot;Widget&quot;, &quot;RssReader&quot;, new { feedUrl = ViewBag.FeedSource, topCount = ViewBag.TopCount })
+	@Html.Action(&quot;Widget&quot;, &quot;RssReader&quot;, new { feedUrl = ViewBag.FeedSource, topCount = ViewBag.TopCount })
 ]]&gt;
-    &lt;/Content&gt;
+	&lt;/Content&gt;
 &lt;/Module&gt;
 @{
-    Response.ContentType = &quot;text/xml&quot;;
+	Response.ContentType = &quot;text/xml&quot;;
 }
 </code></pre>
 <p>This is OpenSocial Gadget Xml, and it contains all information to render gadget in container. Google have good <a href="http://code.google.com/intl/uk-UA/apis/gadgets/docs/gs.html">documentation</a> about this. <code>ModulePrefs</code> section contains copyright attributes and required features. <code>UserPref</code> sections contains user preferences that will be available to user. Access to this preferences is performed via OpenSocial Javascript API in WidgetHelper.js. Section <code>Content</code> is the container for HTML, CSS, Javascript. Here goes rendering of the Widget action.</p>
@@ -344,10 +333,10 @@ namespace SimpleRssReader.Controllers
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

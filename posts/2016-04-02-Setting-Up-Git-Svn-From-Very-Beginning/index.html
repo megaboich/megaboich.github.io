@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Setting up Git-Svn from very beginning</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,60 +40,54 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Setting up Git-Svn from very beginning</h1>
+            <div class="content">
+<h1 class="title">Setting up Git-Svn from very beginning</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                April 2, 2016
-            </span>
-            <span class="tag">
-                3
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">April 2, 2016</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                Git
-            </span>
-            <span class="tag">
-                Svn
-            </span>
+            
+            <span class="tag">Git</span>
+            
+            <span class="tag">Svn</span>
+            
         </div>
     </div>
 
     <br />
-</div><p>This post is a very short instruction how to set up and configure running git-svn with legacy SVN repository.</p>
-<!--cut-->
+    
+</div>
 
+<p>This post is a very short instruction how to set up and configure running git-svn with legacy SVN repository.</p>
+<!--cut-->
 <h2 id="create-git-repository">Create GIT repository</h2>
 <p>First of all it is necessary to init GIT repository and clone it from SVN. And it is good to have some number of recent commits.
 So you need to decide at which starting point you want to have history.
@@ -121,7 +109,7 @@ So it might be already <code>.gitignore</code> file committed by one of your col
 <p>Ok, after you created GIT repository you can work with it in any way you want.
 It is very enjoyable to create as many local branches as you want and fast switching between them.
 There are many ways to work with Git and this is not a topic of this article.
-After finishing your work you should merge all changes to &#39;git-svn&#39; branch and execute</p>
+After finishing your work you should merge all changes to 'git-svn' branch and execute</p>
 <pre><code class="language-bash">git svn dcommit
 </code></pre>
 <p>That will push your changes to SVN. If your version is not the latest it will not allow to push changes.
@@ -133,7 +121,7 @@ In this case you need to pull latest code from SVN.</p>
 <pre><code class="language-bash">svn propget svn:externals -R
 </code></pre>
 <p>Then you can execute simple powershell script that downloads files from svn to your git repository.</p>
-<pre><code class="language-powershell">Write-host &#39;Update svn externals. Version 0.0.1&#39;
+<pre><code class="language-powershell">Write-host 'Update svn externals. Version 0.0.1'
 $ext =
     @(
         (&quot;build&quot;, &quot;url-to-svn-repo&quot;),
@@ -143,7 +131,7 @@ $ext =
     )
 
 $currentLocation = Split-Path -parent $MyInvocation.MyCommand.Definition
-$projectRoot = $currentLocation + &#39;\..\..\&#39;
+$projectRoot = $currentLocation + '\..\..\'
 
 Write-Host &quot;R:$projectRoot&quot;
 
@@ -158,7 +146,7 @@ foreach($e in $ext){
     svn export --force &quot;$svnPath&quot; &quot;$folder&quot;
 }
 </code></pre>
-<p>And if you don&#39;t want to see all these files in uncommited state you shoud add them to your <code>.gitignore</code> file.</p>
+<p>And if you don't want to see all these files in uncommited state you shoud add them to your <code>.gitignore</code> file.</p>
 
 </div>
         </div>
@@ -167,10 +155,10 @@ foreach($e in $ext){
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

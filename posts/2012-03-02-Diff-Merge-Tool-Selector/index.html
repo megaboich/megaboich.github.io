@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Diff Merge Tool Selector</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,60 +40,56 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Diff Merge Tool Selector</h1>
+            <div class="content">
+<h1 class="title">Diff Merge Tool Selector</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                March 2, 2012
-            </span>
-            <span class="tag">
-                3
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">March 2, 2012</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                Tools
-            </span>
+            
+            <span class="tag">Tools</span>
+            
         </div>
     </div>
 
     <br />
-</div><p>DiffMergeSelector might be a helpful tool in case you have several favorite diff/merge tools. It works like &quot;proxy&quot; between your diff tools and your IDE, SVN, Git, Mercurial or any other development tool.<!--cut-->
+    
+</div>
+
+<p>DiffMergeSelector might be a helpful tool in case you have several favorite diff/merge tools. It works like &quot;proxy&quot; between your diff tools and your IDE, SVN, Git, Mercurial or any other development tool.<!--cut-->
 For example you can configure Tortoise SVN to use DiffMergeSelector as external merge tool:</p>
 <p><img src="svn-settings.png" alt=""></p>
 <p>Then each time when you launch diff from Tortoise SVN you will get something like this:</p>
 <p><img src="main_2.png" alt=""></p>
-<p>All you need is perform double-click on icon. It will launch corresponding Diff Tool with appropriate parameters. This is very helpful when you have to use different merge tools for different files or different tasks, and don&#39;t want to reconfigure all your development tools each time.</p>
+<p>All you need is perform double-click on icon. It will launch corresponding Diff Tool with appropriate parameters. This is very helpful when you have to use different merge tools for different files or different tasks, and don't want to reconfigure all your development tools each time.</p>
 <p>If you are going to use the same tool for a known timespan you can skip this step of selecting tool each time just use &quot;Remember my choice for N minutes&quot; option. When DiffMergeSelector runs in this time interval it will automatically run last used Diff Tool without asking your opinion. If you want to clear this timespan you can run DiffMergeSelector.exe with &quot;-r&quot; command line, or &quot;reset_last_choice.cmd&quot; which comes in ZIP package.</p>
 <p>DiffMergeSelector allows customization of command line for each Diff Tool, for example I was able to easily configure it to run Meld (which by fact is running by Python).</p>
 <p>In case you are interested source code is available on <a href="https://github.com/megaboich/DiffMerge-Tool-Selector">Github</a>.</p>
@@ -111,10 +101,10 @@ For example you can configure Tortoise SVN to use DiffMergeSelector as external 
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

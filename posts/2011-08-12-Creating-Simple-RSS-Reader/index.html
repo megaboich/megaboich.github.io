@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Creating Simple RSS Reader Web application with C# and Asp.Net MVC.</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,66 +40,60 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Creating Simple RSS Reader Web application with C# and Asp.Net MVC.</h1>
+            <div class="content">
+<h1 class="title">Creating Simple RSS Reader Web application with C# and Asp.Net MVC.</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                August 12, 2011
-            </span>
-            <span class="tag">
-                4
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">August 12, 2011</span>
+            
+            
+            <span class="tag">4 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                C#
-            </span>
-            <span class="tag">
-                RSS
-            </span>
-            <span class="tag">
-                Asp.Net MVC
-            </span>
+            
+            <span class="tag">C#</span>
+            
+            <span class="tag">RSS</span>
+            
+            <span class="tag">Asp.Net MVC</span>
+            
         </div>
     </div>
 
     <br />
-</div><p>In this article I&#39;ll create simple web application using Microsoft Asp.Net MVC framework. The main functionality is to read RSS feed and to show feed contents in simple HTML view.<!--cut--></p>
+    
+</div>
+
+<p>In this article I'll create simple web application using Microsoft Asp.Net MVC framework. The main functionality is to read RSS feed and to show feed contents in simple HTML view.<!--cut--></p>
 <h2 id="step-1-create-empty-mvc-application">Step 1. Create Empty MVC Application.</h2>
-<p>First of all use Visual Studio menu &quot;File/New project...&quot; then select Asp.Net MVC3 application template and select &quot;Empty&quot; option. We don&#39;t need all this standard stuff, this simple application will be created from scratch.</p>
-<p>Then, let&#39;s create Home controller with action Index and simple View (using Razor engine).</p>
+<p>First of all use Visual Studio menu &quot;File/New project...&quot; then select Asp.Net MVC3 application template and select &quot;Empty&quot; option. We don't need all this standard stuff, this simple application will be created from scratch.</p>
+<p>Then, let's create Home controller with action Index and simple View (using Razor engine).</p>
 <p><img src="3_2.png" alt=""></p>
-<p>Just hit F5 and ensure that browser opens with our empty page titled &quot;Simple RSS Reader&quot;. This is already working Asp.net application; we just need to add functionality to read, parse and show RSS feed. Fast searching in internet shows that there is a great open-source library for .NET named Argotic <a href="http://argotic.codeplex.com/">http://argotic.codeplex.com/</a>. Let&#39;s try it and find out how really helpful it is to use 3rd party libraries. Ok, let&#39;s move.</p>
+<p>Just hit F5 and ensure that browser opens with our empty page titled &quot;Simple RSS Reader&quot;. This is already working Asp.net application; we just need to add functionality to read, parse and show RSS feed. Fast searching in internet shows that there is a great open-source library for .NET named Argotic <a href="http://argotic.codeplex.com/">http://argotic.codeplex.com/</a>. Let's try it and find out how really helpful it is to use 3rd party libraries. Ok, let's move.</p>
 <h2 id="step-2-use-argotic-syndication-framework">Step 2. Use Argotic Syndication Framework.</h2>
 <p>On the main site of Argotic you can download installation package with full sources, binaries and documentation. Then, you may traditionally copy required binaries to lib folder of your application, then add references, then make changes in Web.config file and/or every place required by component. But in this case I will use NuGet <a href="http://nuget.codeplex.com/">http://nuget.codeplex.com/</a>. Thankfully it was already registered Argotic.Web package in the repository, and I will add it from &quot;Manage Nuget Packages&quot; tool dialog (This dialog can be found in Visual Studio main menu &quot;Tools/Library Package Manages/ &quot;).</p>
 <p><img src="5_2.png" alt=""></p>
@@ -114,139 +102,139 @@
 <p>The model:</p>
 <pre><code class="language-csharp">public class RssArticle
 {
-    public Uri Link { get; set; }
+	public Uri Link { get; set; }
 
-    public DateTime PublicationDate { get; set; }
+	public DateTime PublicationDate { get; set; }
 
-    public string Content { get; set; }
+	public string Content { get; set; }
 
-    public string Title { get; set; }
+	public string Title { get; set; }
 
-    public string Author { get; set; }
+	public string Author { get; set; }
 }
 
 public class RssFeedContent
 {
-    public string FeedTitle { get; set; }
+	public string FeedTitle { get; set; }
 
-    public IEnumerable&lt;RssArticle&gt; Articles { get; set; }
+	public IEnumerable&lt;RssArticle&gt; Articles { get; set; }
 }
 </code></pre>
 <p>And here goes the service:</p>
 <pre><code class="language-csharp">public class RssReaderService: IRssReaderService
 {
-    public RssReaderService()
-    {
-    }
+	public RssReaderService()
+	{
+	}
 
-    public RssFeedContent ReadFeed(string feedUrl, int numberOfItems)
-    {
-        var settings = new SyndicationResourceLoadSettings
-        {
-            RetrievalLimit = numberOfItems
-        };
-        var feed = GenericSyndicationFeed.Create(new Uri(feedUrl), settings);
+	public RssFeedContent ReadFeed(string feedUrl, int numberOfItems)
+	{
+		var settings = new SyndicationResourceLoadSettings
+		{
+			RetrievalLimit = numberOfItems
+		};
+		var feed = GenericSyndicationFeed.Create(new Uri(feedUrl), settings);
 
-        if (feed.Resource is RssFeed)
-        {
-            return ReadRssFeed((RssFeed)feed.Resource);
-        }
+		if (feed.Resource is RssFeed)
+		{
+			return ReadRssFeed((RssFeed)feed.Resource);
+		}
 
-        if (feed.Resource is AtomFeed)
-        {
-            return ReadAtomFeed((AtomFeed)feed.Resource);
-        }
+		if (feed.Resource is AtomFeed)
+		{
+			return ReadAtomFeed((AtomFeed)feed.Resource);
+		}
 
-        throw new InvalidOperationException(&quot;Feed has unsupported format&quot;);
-    }
+		throw new InvalidOperationException(&quot;Feed has unsupported format&quot;);
+	}
 
-    private RssFeedContent ReadRssFeed(RssFeed feed)
-    {
-        var rssContentModel = new RssFeedContent
-        {
-            FeedTitle = feed.Channel.Title,
-            Articles = feed.Channel.Items.Select(item =&gt; new RssArticle
-            {
-                Title = item.Title,
-                Content = item.Description,
-                PublicationDate = item.PublicationDate,
-                Link = item.Link,
-                Author = item.Author
-            })
-        };
+	private RssFeedContent ReadRssFeed(RssFeed feed)
+	{
+		var rssContentModel = new RssFeedContent
+		{
+			FeedTitle = feed.Channel.Title,
+			Articles = feed.Channel.Items.Select(item =&gt; new RssArticle
+			{
+				Title = item.Title,
+				Content = item.Description,
+				PublicationDate = item.PublicationDate,
+				Link = item.Link,
+				Author = item.Author
+			})
+		};
 
-        return rssContentModel;
-    }
+		return rssContentModel;
+	}
 
-    private RssFeedContent ReadAtomFeed(AtomFeed feed)
-    {
-        var rssContentModel = new RssFeedContent
-        {
-            FeedTitle = feed.Title.Content,
-            Articles = feed.Entries.Select(item =&gt; new RssArticle
-            {
-                Title = item.Title.Content,
-                Content = item.Content.Content,
-                PublicationDate = item.PublishedOn,
-                Link = item.Links.FirstOrDefault().Uri,
-                Author = string.Join(&quot;, &quot;, item.Authors.Select(a =&gt; a.Name))
-            })
-        };
+	private RssFeedContent ReadAtomFeed(AtomFeed feed)
+	{
+		var rssContentModel = new RssFeedContent
+		{
+			FeedTitle = feed.Title.Content,
+			Articles = feed.Entries.Select(item =&gt; new RssArticle
+			{
+				Title = item.Title.Content,
+				Content = item.Content.Content,
+				PublicationDate = item.PublishedOn,
+				Link = item.Links.FirstOrDefault().Uri,
+				Author = string.Join(&quot;, &quot;, item.Authors.Select(a =&gt; a.Name))
+			})
+		};
 
-        return rssContentModel;
-    }
+		return rssContentModel;
+	}
 }
 </code></pre>
 <p>As you can see RssReaderService is able to read RSS and Atom feed formats.</p>
 <p>Then, next step is to use our new service from controller and update view to display the feed. So, the controller:</p>
 <pre><code class="language-csharp">public class HomeController : Controller
 {
-    public ActionResult Index(string rssUrl)
-    {
-        var rssService = new RssReaderService();
-        var model = rssService.ReadFeed(rssUrl, 10);
-        return View(model);
-    }
+	public ActionResult Index(string rssUrl)
+	{
+		var rssService = new RssReaderService();
+		var model = rssService.ReadFeed(rssUrl, 10);
+		return View(model);
+	}
 }
 </code></pre>
 <p>And view:</p>
 <pre><code class="language-csharp">@model SimpleRssReader.Models.RssFeedContent
 @{
-    Layout = null;
+	Layout = null;
 }
 
 &lt;!DOCTYPE html&gt;
 
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;@Model.FeedTitle&lt;/title&gt;
-    &lt;link href=&quot;@Url.Content(&quot;~/Content/Rss.css&quot;)&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+	&lt;title&gt;@Model.FeedTitle&lt;/title&gt;
+	&lt;link href=&quot;@Url.Content(&quot;~/Content/Rss.css&quot;)&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div id=&quot;items&quot;&gt;
-    &lt;ul&gt;
-    @foreach (var rssItem in Model.Articles)
-    {
-        &lt;li&gt;
-            &lt;h2&gt;
-                &lt;a href=&quot;@rssItem.Link&quot;&gt;@rssItem.Title&lt;/a&gt;
-            &lt;/h2&gt;
-            &lt;p&gt;
-                @rssItem.PublicationDate.ToLongDateString()
-                @rssItem.Author
-            &lt;/p&gt;
-            &lt;div&gt;
-                @Html.Raw(rssItem.Content)
-            &lt;/div&gt;
-        &lt;/li&gt;
-    }
-    &lt;/ul&gt;
-    &lt;/div&gt;
+	&lt;div id=&quot;items&quot;&gt;
+	&lt;ul&gt;
+	@foreach (var rssItem in Model.Articles)
+	{
+		&lt;li&gt;
+			&lt;h2&gt;
+				&lt;a href=&quot;@rssItem.Link&quot;&gt;@rssItem.Title&lt;/a&gt;
+			&lt;/h2&gt;
+			&lt;p&gt;
+				@rssItem.PublicationDate.ToLongDateString()
+				@rssItem.Author
+			&lt;/p&gt;
+			&lt;div&gt;
+				@Html.Raw(rssItem.Content)
+			&lt;/div&gt;
+		&lt;/li&gt;
+	}
+	&lt;/ul&gt;
+	&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Also I&#39;ve created a little CSS style sheet <code>Rss.css</code> to prettify results.</p>
-<p>That&#39;s all. Now Web application will show top 10 items from RSS feed specified in <code>rssUrl</code> query parameter. For example let&#39;s show Amazon feed, my url looks like this:</p>
+<p>Also I've created a little CSS style sheet <code>Rss.css</code> to prettify results.</p>
+<p>That's all. Now Web application will show top 10 items from RSS feed specified in <code>rssUrl</code> query parameter. For example let's show Amazon feed, my url looks like this:</p>
 <pre><code>http://localhost:26807/?rssUrl=http://www.amazon.com/rss/tag/smartphone/popular/ref=tag_rsh_hl_erso
 </code></pre>
 <p>This is what result page looks like.</p>
@@ -260,10 +248,10 @@ public class RssFeedContent
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>PowerShell Html Templating Engine - Asp style</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,55 +40,51 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">PowerShell Html Templating Engine - Asp style</h1>
+            <div class="content">
+<h1 class="title">PowerShell Html Templating Engine - Asp style</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                August 6, 2012
-            </span>
-            <span class="tag">
-                5
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">August 6, 2012</span>
+            
+            
+            <span class="tag">5 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                Powershell
-            </span>
+            
+            <span class="tag">Powershell</span>
+            
         </div>
     </div>
 
     <br />
-</div><p>Hi everyone. In this article I want to describe implementation of my custom html templating engine for PowerShell.</p>
+    
+</div>
+
+<p>Hi everyone. In this article I want to describe implementation of my custom html templating engine for PowerShell.</p>
 <p>This one is simple and powerful enough. Here is a list of requirements that I had implemented:</p>
 <ol>
 <li>View templates are stored separately from code in Html files.</li>
@@ -103,7 +93,6 @@
 <li>Works everywhere, only PowerShell 2.0 is required without additional tweaks.</li>
 </ol>
 <!--cut-->
-
 <p>First of all I was trying to find something already implemented, but with bad luck. Someone tries Razor engine, but this is very complicated and requires additional tweaks. Someone indeed implemented their own engines, but with some custom syntax and with poor functionality. So when a bright idea came into my mind I implemented my own view engine.</p>
 <p>Here is a result screenshot of template to use with my engine.</p>
 <p><img src="image_2.png" alt=""></p>
@@ -116,22 +105,22 @@
 </code></pre>
 <p>This is indeed very simple View Engine right out of the box. With it you can build complicated template like this:</p>
 <pre><code class="language-powershell">$Model = @{}
-$Model.Title = &#39;Hello, this is a test&#39;
-$Model.Clients = @(&#39;Ivan&#39;, &#39;Sergiy&#39;, &#39;John&#39;)
+$Model.Title = 'Hello, this is a test'
+$Model.Clients = @('Ivan', 'Sergiy', 'John')
 
 #view render method 1 - embedded powershell string evaluation
 $html = &quot;
 &lt;h1&gt;
-    $($Model.Title)
+	$($Model.Title)
 &lt;/h1&gt;
 &lt;div class=&quot;&quot;test&quot;&quot;&gt;
-    &lt;ul&gt;
-        $( foreach($client in $Model.Clients) {&quot;
-        &lt;li&gt;
-            $( $client )
-        &lt;/li&gt;
-        &quot;})
-    &lt;/ul&gt;
+	&lt;ul&gt;
+		$( foreach($client in $Model.Clients) {&quot;
+		&lt;li&gt;
+			$( $client )
+		&lt;/li&gt;
+		&quot;})
+	&lt;/ul&gt;
 &lt;/div&gt;&quot;
 Write-Host $html
 </code></pre>
@@ -145,71 +134,71 @@ Write-Host $html
 </ol>
 <p>Ok, first two problems can be solved with next function:</p>
 <pre><code class="language-powershell">function RenderViewNativePowerShell(
-    [Parameter(Mandatory=$true)][string] $viewName,
-    [Parameter(Mandatory=$true)][Object] $model
+	[Parameter(Mandatory=$true)][string] $viewName,
+	[Parameter(Mandatory=$true)][Object] $model
 )
 {
-    $viewFileName = Resolve-Path (&#39;Views\&#39; + $viewName)
-    $templateContent = Get-Content $viewFileName | Out-String
-    return $ExecutionContext.InvokeCommand.ExpandString(&#39;&quot;&#39; + $templateContent + &#39;&quot;&#39;)
+	$viewFileName = Resolve-Path ('Views\' + $viewName)
+	$templateContent = Get-Content $viewFileName | Out-String
+	return $ExecutionContext.InvokeCommand.ExpandString('&quot;' + $templateContent + '&quot;')
 }
 </code></pre>
 <p>It loads template from file and then uses the PowerShell string evaluation on it. (It was hard to find this function in language reference).</p>
 <p>This function can be called this way:</p>
 <pre><code class="language-powershell">#view render method 2 - templates powershell evaluation
-RenderViewNativePowerShell &#39;Test_ps.html&#39; $Model
+RenderViewNativePowerShell 'Test_ps.html' $Model
 </code></pre>
 <p>It supports nested views, take a look at view <code>test_ps.html</code></p>
-<pre><code class="language-powershell">$( RenderViewNativePowerShell &#39;header_ps.html&#39; $Model )
+<pre><code class="language-powershell">$( RenderViewNativePowerShell 'header_ps.html' $Model )
 
 &lt;div class=&quot;&quot;test&quot;&quot;&gt;
-    &lt;ul&gt;
-         $( foreach($client in $Model.Clients) {&quot;
-            &lt;li&gt;
-                $( $client )
-            &lt;/li&gt;
-        &quot;})
-    &lt;/ul&gt;
+	&lt;ul&gt;
+		 $( foreach($client in $Model.Clients) {&quot;
+			&lt;li&gt;
+				$( $client )
+			&lt;/li&gt;
+		&quot;})
+	&lt;/ul&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Ok, this is already a very useful implementation, but what about using Asp-like <code>&lt;% ... %&gt;</code> formatting? This special closures has support in many specialized text editors and very convenient for many people. So, next idea was simply replace Asp <code>&lt;% ... %&gt;</code> braces to its PowerShell equivalents <code>$( ... )</code>. But this was not so simple because PowerShell syntax needs to be different in cases when nested code blocks used.</p>
 <p>After some struggling I was able to implement Regex parsing expression and intelligent replace logic. Here it is:</p>
 <pre><code class="language-powershell">function RenderView(
-    [Parameter(Mandatory=$true)][string] $viewName,
-    [Parameter(Mandatory=$true)][Object] $model
+	[Parameter(Mandatory=$true)][string] $viewName,
+	[Parameter(Mandatory=$true)][Object] $model
 )
 {
-    $viewFileName = Resolve-Path (&#39;Views\&#39; + $viewName)
-    $templateContent = Get-Content $viewFileName | Out-String
+	$viewFileName = Resolve-Path ('Views\' + $viewName)
+	$templateContent = Get-Content $viewFileName | Out-String
 
-    $rx = New-Object System.Text.RegularExpressions.Regex(&#39;(&lt;%.*?%&gt;)&#39;, [System.Text.RegularExpressions.RegexOptions]::Singleline)
-    $res = @()
-    $splitted = $rx.Split($templateContent);
-    foreach($part in $splitted)
-    {
-        if ($part.StartsWith(&#39;&lt;%&#39;) -and $part.EndsWith(&#39;%&gt;&#39;)) #transform &lt;%...%&gt; blocks
-        {
-            $expr = $part.Substring(2, $part.Length-4) #remove &lt;%%&gt;
-            $normExpr = $expr.Replace(&#39;`n&#39;,&#39;&#39;).Replace(&#39;`r&#39;,&#39;&#39;).Trim();
+	$rx = New-Object System.Text.RegularExpressions.Regex('(&lt;%.*?%&gt;)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+	$res = @()
+	$splitted = $rx.Split($templateContent);
+	foreach($part in $splitted)
+	{
+		if ($part.StartsWith('&lt;%') -and $part.EndsWith('%&gt;')) #transform &lt;%...%&gt; blocks
+		{
+			$expr = $part.Substring(2, $part.Length-4) #remove &lt;%%&gt;
+			$normExpr = $expr.Replace('`n','').Replace('`r','').Trim();
 
-            $startClosure = &#39;$(&#39;
-            $endClosure = &#39;)&#39;
-            if ($normExpr.EndsWith(&#39;{&#39;)) {
-                $endClosure = &#39;&quot;&#39;
-            }
-            if ($normExpr.StartsWith(&#39;}&#39;)) {
-                $startClosure = &#39;&quot;&#39;
-            }
-            $res += @($startClosure + $expr + $endClosure)
-        }
-        else #encode text blocks
-        {
-            $expr = $part.Replace(&#39;&quot;&#39;, &#39;&quot;&quot;&#39;);
-            $res += @($expr)
-        }
-    }
-    $viewExpr = $res -join &#39;&#39;
-    return $ExecutionContext.InvokeCommand.ExpandString(&#39;&quot;&#39; + $viewExpr + &#39;&quot;&#39;)
+			$startClosure = '$('
+			$endClosure = ')'
+			if ($normExpr.EndsWith('{')) {
+				$endClosure = '&quot;'
+			}
+			if ($normExpr.StartsWith('}')) {
+				$startClosure = '&quot;'
+			}
+			$res += @($startClosure + $expr + $endClosure)
+		}
+		else #encode text blocks
+		{
+			$expr = $part.Replace('&quot;', '&quot;&quot;');
+			$res += @($expr)
+		}
+	}
+	$viewExpr = $res -join ''
+	return $ExecutionContext.InvokeCommand.ExpandString('&quot;' + $viewExpr + '&quot;')
 }
 </code></pre>
 <p>This code also replaces <code>&quot;</code> to <code>&quot;&quot;</code>, so it is ready for Html views.</p>
@@ -224,10 +213,10 @@ RenderViewNativePowerShell &#39;Test_ps.html&#39; $Model
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

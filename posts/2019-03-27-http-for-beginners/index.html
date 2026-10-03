@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>HTTP for beginners</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,66 +40,59 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">HTTP for beginners</h1>
+            <div class="content">
+<h1 class="title">HTTP for beginners</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                March 27, 2019
-            </span>
-            <span class="tag">
-                10
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">March 27, 2019</span>
+            
+            
+            <span class="tag">10 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                HTTP
-            </span>
-            <span class="tag">
-                REST
-            </span>
-            <span class="tag">
-                API
-            </span>
+            
+            <span class="tag">HTTP</span>
+            
+            <span class="tag">REST</span>
+            
+            <span class="tag">API</span>
+            
         </div>
     </div>
 
     <br />
-</div><blockquote>
+    
+</div>
+
+<blockquote>
 <p>This article is an introduction for beginners into HTTP, API and REST matters. Big thanks to excellent documentation from MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</p>
 </blockquote>
 <p>HTTP is a protocol which allows the fetching of resources, such as HTML documents. It is the foundation of any data exchange on the Web and a client-server protocol, which means requests are initiated by the recipient, usually the Web browser. A complete document is reconstructed from the different sub-documents fetched, for instance text, layout description, images, videos, scripts, and more.</p>
 <!--cut-->
-
 <p><img src="images/Fetching_a_page.png" alt=""></p>
 <p><em>Image is taken from the MDN website: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</em></p>
 <h2 id="http-is-a-client-server-protocol">HTTP is a client-server protocol</h2>
@@ -155,7 +142,7 @@ Content-Type: text/html
 <li><strong>Content-Type</strong>: application/json;charset=UTF-8</li>
 <li><strong>Cookie</strong>: _ga=GA1.1.279945238.1538047637; BAYEUX_BROWSER=xl0ydxss3t6c1wn8; glide_user_route=glide.bc4183be9d54d8709bf320ec7b40ddea; glide_user_activity=&quot;U0N2Mzp1b29EeERpTUcrL2xtNzhZMHpEdmx4TmxJMUx5V3U5STozSy9JM1F5ZEF3Y1JzUWJsRGYrTTlnaVBVUk5PU1hiK2ZicE1pRlV5cUZzPTo2ODE2Zjc5Y2MwYTgwMTY0MDFjNWEzM2JlMDRiZTQ0MQ==&quot;; JSESSIONID=4587CA945CDF2900CF1172589E4A623E;</li>
 <li><strong>Cache-Control</strong>: no-cache</li>
-<li><strong>Referer</strong>: <a href="http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&jvar_breakdown=0df47e02d7130100b96d45a3ce610399&jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4">http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&amp;jvar_breakdown=0df47e02d7130100b96d45a3ce610399&amp;jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4</a></li>
+<li><strong>Referer</strong>: <a href="http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&amp;jvar_breakdown=0df47e02d7130100b96d45a3ce610399&amp;jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4">http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&amp;jvar_breakdown=0df47e02d7130100b96d45a3ce610399&amp;jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4</a></li>
 <li><strong>User-Agent</strong>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</li>
 <li><strong>X-UserToken</strong>: 13d3dbe377103300fde1bfc2681061bc851f6637198786af5654ffa00b5453c904e12fd7</li>
 </ul>
@@ -234,7 +221,7 @@ Content-Length: nnnn
       &quot;firstAired&quot;: &quot;1999-10-20&quot;,
       &quot;id&quot;: 81797,
       &quot;network&quot;: &quot;Fuji TV&quot;,
-      &quot;overview&quot;: &quot;It was a time when pirates ruled the seas. Several bands of pirates were battling over the great hidden treasure, One Piece, which was left by the now legendary pirate captain, Gold Roger. There was a young boy who admired the pirates, his name was Monkey D. Luffy. One day, he mistakenly eats the devil&#39;s fruit and turns himself into a rubber human being.\r\n\r\nTen years have passed since that incident. Luffy sets out to sail all alone. He sets out to become a great pirate captain and that&#39;s when his great adventure begins. \&quot;I&#39;m going to be the Pirate King! I&#39;m going to get One Piece!\&quot;.&quot;,
+      &quot;overview&quot;: &quot;It was a time when pirates ruled the seas. Several bands of pirates were battling over the great hidden treasure, One Piece, which was left by the now legendary pirate captain, Gold Roger. There was a young boy who admired the pirates, his name was Monkey D. Luffy. One day, he mistakenly eats the devil's fruit and turns himself into a rubber human being.\r\n\r\nTen years have passed since that incident. Luffy sets out to sail all alone. He sets out to become a great pirate captain and that's when his great adventure begins. \&quot;I'm going to be the Pirate King! I'm going to get One Piece!\&quot;.&quot;,
       &quot;seriesName&quot;: &quot;One Piece&quot;,
       &quot;slug&quot;: &quot;one-piece&quot;,
       &quot;status&quot;: &quot;Continuing&quot;
@@ -304,15 +291,20 @@ Content-Length: nnnn
 </code></pre>
 <h2 id="http-api-summary">HTTP API Summary</h2>
 <ul>
-<li><p>HTTP is a main transport protocol for the internet. It is widely used for every application: mobile, desktop, embedded or web.</p>
+<li>
+<p>HTTP is a main transport protocol for the internet. It is widely used for every application: mobile, desktop, embedded or web.</p>
 </li>
-<li><p>HTTP APIs is a way of communications between applications, devices and services.</p>
+<li>
+<p>HTTP APIs is a way of communications between applications, devices and services.</p>
 </li>
-<li><p>SOAP is a quite old and hard to use protocol. But it is still used in enterprises.</p>
+<li>
+<p>SOAP is a quite old and hard to use protocol. But it is still used in enterprises.</p>
 </li>
-<li><p>Most of modern APIs use various JSON over HTTP implementation more or less REST compliant.</p>
+<li>
+<p>Most of modern APIs use various JSON over HTTP implementation more or less REST compliant.</p>
 </li>
-<li><p>GraphQL is a new way of writing and designing APIs which is using special query language to request data and provides JSON as output.</p>
+<li>
+<p>GraphQL is a new way of writing and designing APIs which is using special query language to request data and provides JSON as output.</p>
 </li>
 </ul>
 
@@ -323,10 +315,10 @@ Content-Length: nnnn
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

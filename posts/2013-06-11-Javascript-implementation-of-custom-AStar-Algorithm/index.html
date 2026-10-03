@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Javascript implementation of custom A-Star algorithm</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,55 +40,51 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Javascript implementation of custom A-Star algorithm</h1>
+            <div class="content">
+<h1 class="title">Javascript implementation of custom A-Star algorithm</h1>
+
 <div class="field is-grouped is-grouped-multiline">
+    
     <div class="control">
         <div class="tags has-addons">
-            <span class="tag is-warning is-light">
-                June 11, 2013
-            </span>
-            <span class="tag">
-                3
-                min read
-            </span>
+            
+            <span class="tag is-warning is-light">June 11, 2013</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
         </div>
     </div>
 
     <div class="control">
         <div class="tags">
-            <span class="tag">
-                JavaScript
-            </span>
+            
+            <span class="tag">JavaScript</span>
+            
         </div>
     </div>
 
     <br />
-</div><p>Recently I had a lots of interest in Javascript and decided to implement something funny and interesting.
+    
+</div>
+
+<p>Recently I had a lots of interest in Javascript and decided to implement something funny and interesting.
 For me it was a problem of finding a way through the maze.
 So, I searched a bit and found that this kind of problems are usually solved with path finding algorithms and one of those is A-Star.<!--cut-->
 After sore investigating I found very good article by Patrick Lester (<a href="http://www.gamedev.net/page/resources/_/technical/artificial-intelligence/a-pathfinding-for-beginners-r2003">A-Star Pathfinding for Beginners</a>).
@@ -105,27 +95,27 @@ My interest progressed to this demo implementation, and it is possible to play w
 <li>Select cell, then press &quot;Set Start&quot; or &quot;Set Finish&quot; buttons to change start/destination point</li>
 <li>Click on the &quot;Go!&quot; button to calculate a path.</li>
 </ul>
-<div>
+<div class="box">
   <link rel="stylesheet" href="styles.css">
-  
-<p>  <button id="gen-field-btn" class="btn btn-default">Generate New Field</button>
-  <br/>
-  <label for="field-width" class="input-group-addon">Width</label>
-  <input id="field-width" type="text" class="form-control" value="10"/>
-  <br/>
-  <label for="field-height" class="input-group-addon">Height</label>
-  <input id="field-height" type="text" class="form-control" value="10"/>
-  <br/></p>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <div id="field-container">
-      </div>
+  <div class="field is-grouped is-align-items-flex-end">
+    <div class="control">
+      <label for="field-width" class="label">Width</label>
+      <input id="field-width" type="number" min="1" class="input" style="width: 6em" value="10"/>
+    </div>
+    <div class="control">
+      <label for="field-height" class="label">Height</label>
+      <input id="field-height" type="number" min="1" class="input" style="width: 6em" value="10"/>
+    </div>
+    <div class="control">
+      <button id="gen-field-btn" class="button">Generate New Field</button>
     </div>
   </div>
-  
-<p>  <button id="set-start-btn" class="btn btn-default">Set Start</button>
-  <button id="set-finish-btn" class="btn btn-default">Set Finish</button>
-  <button id="go-btn" class="btn btn-success">Go!</button></p>
+  <div id="field-container"></div>
+  <div class="buttons mt-4">
+    <button id="set-start-btn" class="button">Set Start</button>
+    <button id="set-finish-btn" class="button">Set Finish</button>
+    <button id="go-btn" class="button is-success">Go!</button>
+  </div>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="a-star-algorithm.js"></script>
   <script src="field-designer.js"></script>
@@ -139,10 +129,10 @@ My interest progressed to this demo implementation, and it is possible to play w
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>

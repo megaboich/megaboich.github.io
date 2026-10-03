@@ -1,37 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <title>Projects</title>
     <meta name="description" content="Oleksandr Boiko" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/assets/lib/bulma/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <script type="importmap">
         {
             "imports": {
-                "@coderline/alphatab": "/assets/lib/alphatab/dist/alphaTab.min.mjs"
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
             }
         }
     </script>
 
     <script type="module" src="/assets/js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70363755-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-70363755-1');
-    </script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
-    <!-- Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -46,39 +40,34 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="/projects/">
-                    Projects
-                </a>
-                <a class="navbar-item" href="/resume/">
-                    Résumé
-                </a>
-                <a class="navbar-item" href="/posts/">
-                    Blog
-                </a>
-                <a class="navbar-item" href="/songs/">
-                    Songs
-                </a>
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
             </div>
         </div>
     </nav>
 
     <section class="section section-content">
         <div class="container" style="max-width:960px">
-            <div class="content"><h1 class="title">Projects</h1>
+            <div class="content">
+<h1 class="title">Projects</h1>
+
 <div class="field is-grouped is-grouped-multiline">
-</div><p>Sometimes I have some free time and urgent desire to code something different. I really like to do experiments and learn new stuff. And sometimes small experiment evolves into a project. I do also have a <a href="https://github.com/megaboich">Github profile</a>.</p>
+    
+</div>
+
+<p>Sometimes I have some free time and urgent desire to code something different. I really like to do experiments and learn new stuff. And sometimes small experiment evolves into a project. I do also have a <a href="https://github.com/megaboich">Github profile</a>.</p>
 <hr>
 <h3 id="linked-graph">Linked graph</h3>
 <img class="project-card-img" src="https://github.com/megaboich/linked-graph/raw/master/docs/linked-graph-demo-optimized.gif">
 </img>
-
 <p><a href="https://github.com/megaboich/linked-graph">Linked graph</a> is a demo Web application which allows to build, edit and view linked graph data structures. One of important functionalities is a live layout which adjusts positions of objects based on link constraints between them. This layout calculation is provided by nice <a href="https://github.com/tgdwyer/WebCola">WebCola</a> JavaScript library with is used in direct combination with React rendering. Awesome library <a href="https://d3js.org/">D3</a> was intentionally not used here.</p>
 <p>Features:</p>
 <ul>
@@ -95,7 +84,6 @@
 <h3 id="logo-playground">Logo playground</h3>
 <img class="project-card-img" src="https://raw.githubusercontent.com/logolang/logo-playground/master/content/images/square-logo-160.png">
 </img>
-
 <p><a href="https://github.com/logolang/logo-playground">Logo playground</a> is an online IDE for LOGO programming language with ability to write and execute programs directly in web browser.</p>
 <p>LOGO was my first programming language which I learned when I was 10 years old, so I decided to create a decent own-made environment to fulfill my nostalgia and have some fun during the process.</p>
 <p>This project turned to be quite long lasting, initially I started it to try different ways of organizing React frontend application. I refactored it several times trying different architecture approaches experimenting with reactive event model <a href="https://rxjs-dev.firebaseapp.com/">RxJS</a> or dependency injection with <a href="http://inversify.io/">Inversify</a> library. At last I settled on &quot;classic&quot; React + Redux combination with Redux-thunk middleware.
@@ -104,7 +92,6 @@ I still dream of writing some sort of documentation wrap-up for this project.</p
 <h3 id="2048-game">2048 game</h3>
 <img class="project-card-img" src="https://github.com/megaboich/2048/raw/master/2048-demo.gif">
 </img>
-
 <p>2048 is a single-player sliding block puzzle game. You need to
 move blocks in order to combine the same tiles. The goal is to
 reach 2048 or a maximum you can.</p>
@@ -116,7 +103,6 @@ Fun project to get my hands to work with some technologies.</p>
 <h3 id="javascript-map-parser">Javascript Map Parser</h3>
 <img class="project-card-img" src="https://raw.githubusercontent.com/megaboich/js-map-parser/master/site/npp/npp.png">
 </img>
-
 <p><a href="https://github.com/megaboich/js-map-parser">JavaScript map parser</a> is an extension for Visual Studio and Notepad++ to show panel with hierarchy structure of your JavaScript file. I created this tool to improve navigation over monstrous spaghetti-styled legacy JavaScript codebase.</p>
 <p>Now this extension is mostly obsolete unless you are stuck in previous era and still working with ES5.</p>
 
@@ -127,10 +113,10 @@ Fun project to get my hands to work with some technologies.</p>
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <span>© Copyright 2024, </span>
+                <span>© Copyright 2026, </span>
                 <a href="/">Oleksandr Boiko</a>.
                 <span>The website content is licensed </span>
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
     </footer>
