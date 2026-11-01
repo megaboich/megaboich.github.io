@@ -1,0 +1,31 @@
+.kerning-demo .kerning-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  user-select: none;
+}
+
+.kerning-demo .kerning-text {
+  font-family: var(--bulma-family-code);
+  font-size: clamp(1.5rem, 6vw, 3rem);
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+}
+
+.kerning-demo .kerning-small {
+  font-size: clamp(1rem, 3.5vw, 1.75rem);
+}
+
+.kerning-demo .kerning-off,
+.kerning-demo:has(.kerning-toggle input:not(:checked)) .kerning-on {
+  display: none;
+}
+
+.kerning-demo:has(.kerning-toggle input:not(:checked)) .kerning-off {
+  display: inline;
+}
+
+.kerning-demo:has(.kerning-toggle input:not(:checked)) .kerning-text {
+  font-feature-settings: "calt" 0;
+}

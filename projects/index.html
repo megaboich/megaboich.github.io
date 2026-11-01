@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Projects</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Projects</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+</div>
+
+<p>Here are my personal projects, the newest ones at the top. All of them are open source, and you can also find me on <a href="https://github.com/megaboich">Github</a>.</p>
+<hr>
+<h3 id="dejareview">DejaReview</h3>
+<img class="project-card-img" src="https://github.com/megaboich/deja-review-vscode-plugin/raw/master/docs/images/review-demo.gif">
+</img>
+<p><a href="https://github.com/megaboich/deja-review-vscode-plugin">DejaReview</a> is a VS Code extension to review code changes made by AI agents. Code that is good I stage with git, for the rest I leave notes right in the code and diffs, and then copy all notes with their context to the agent in one click.</p>
+<p>AI agents are very willing to produce huge changes, and while reviewing them I kept opening the same files again and again with a strong feeling of déjà vu, not sure if I had already written a note about it or not. So I wanted an easy way to keep track of what is accepted and what still needs work.</p>
+<p>All code was written by AI agents in <a href="https://opencode.ai">OpenCode</a> under my guidance in September and October 2026, and from the second day the extension was reviewed with itself. The panel UI is built with nice <a href="https://preactjs.com">Preact</a> library bundled with <a href="https://esbuild.github.io">esbuild</a>, so there are still no runtime dependencies. More details about this story are in the <a href="/posts/2026-10-19-DejaReview/">blog post</a>, and there is also a short <a href="https://www.youtube.com/watch?v=zY4tU0eC6zQ">demo video</a>.</p>
+<p>Features:</p>
+<ul>
+<li>Notes on selected lines in files and in diffs, on both sides of a comparison.</li>
+<li>Notes for a whole file, and general notes.</li>
+<li>List of files to review with Stage and Revert buttons, the next file opens automatically.</li>
+<li>Copy all notes as Markdown with file paths, lines and code snippets.</li>
+<li>Restore the last copied notes.</li>
+<li>Everything stays on your machine, the extension does not call any AI.</li>
+</ul>
+<p>Since October 29, 2026 it is published on the <a href="https://marketplace.visualstudio.com/items?itemName=OleksandrBoiko.dejareview">VS Code Marketplace</a>, so it can be installed right from VS Code by searching for &quot;DejaReview&quot;.</p>
+<hr>
+<h3 id="yet-another-tuner">Yet another tuner</h3>
+<img class="project-card-img" src="/posts/2026-08-15-Yet-Another-Tuner/images/tuner-light-desktop.png">
+</img>
+<p><a href="https://github.com/megaboich/yet-another-tuner">Yet another tuner</a> is a guitar tuner which works directly in web browser. I was tired of tuner apps on my phone with ads, and also I wanted to explore Web Audio APIs on something real.</p>
+<p>Sound from the microphone is processed locally in an <code>AudioWorklet</code>, separately from the UI thread, and never leaves the device. Pitch detection is done by the McLeod Pitch Method implemented in plain JavaScript without any runtime dependencies.</p>
+<p>The first prototype was written by me in 2025, and in August 2026 the app was completed by AI (<a href="https://openai.com/index/gpt-5-6/">GPT-5.6 Sol</a> in <a href="https://opencode.ai">OpenCode</a>) under my guidance. More details about this story and implementation are in the <a href="/posts/2026-08-15-Yet-Another-Tuner/">blog post</a>.</p>
+<p>Features:</p>
+<ul>
+<li>Automatic string detection or manual string lock.</li>
+<li>Tuning meter in cents and pitch history graph.</li>
+<li>Standard and alternate tunings, or a custom one.</li>
+<li>A4 calibration, capo, and reference tone.</li>
+<li>Light and dark themes, left-handed layout.</li>
+<li>Works offline and can be installed as an app (PWA).</li>
+</ul>
+<p>Demo is deployed here: <a href="https://olekboiko.com/yet-another-tuner/">https://olekboiko.com/yet-another-tuner/</a>.</p>
+<hr>
+<h3 id="linked-graph">Linked graph</h3>
+<img class="project-card-img" src="https://github.com/megaboich/linked-graph/raw/master/docs/linked-graph-demo-optimized.gif">
+</img>
+<p><a href="https://github.com/megaboich/linked-graph">Linked graph</a> is a demo Web application which allows to build, edit and view linked graph data structures. One of important functionalities is a live layout which adjusts positions of objects based on link constraints between them. This layout calculation is provided by nice <a href="https://github.com/tgdwyer/WebCola">WebCola</a> JavaScript library with is used in direct combination with React rendering. Awesome library <a href="https://d3js.org/">D3</a> was intentionally not used here.</p>
+<p>Features:</p>
+<ul>
+<li>Adding new objects and connections.</li>
+<li>Move object with drag and drop.</li>
+<li>Editing of objects and managing connections.</li>
+<li>Automatic live graph force layout.</li>
+<li>Displaying link directions and text.</li>
+<li>Zooming and panning.</li>
+<li>Mobile friendly.</li>
+<li>Possibility to undo 5 last operations.</li>
+</ul>
+<hr>
+<h3 id="logo-playground">Logo playground</h3>
+<img class="project-card-img" src="https://raw.githubusercontent.com/logolang/logo-playground/master/content/images/square-logo-160.png">
+</img>
+<p><a href="https://github.com/logolang/logo-playground">Logo playground</a> is an online IDE for LOGO programming language with ability to write and execute programs directly in web browser.</p>
+<p>LOGO was my first programming language which I learned when I was 10 years old, so I decided to create a decent own-made environment to fulfill my nostalgia and have some fun during the process.</p>
+<p>This project turned to be quite long lasting, initially I started it to try different ways of organizing React frontend application. I refactored it several times trying different architecture approaches experimenting with reactive event model <a href="https://rxjs-dev.firebaseapp.com/">RxJS</a> or dependency injection with <a href="http://inversify.io/">Inversify</a> library. At last I settled on &quot;classic&quot; React + Redux combination with Redux-thunk middleware.
+I still dream of writing some sort of documentation wrap-up for this project.</p>
+<hr>
+<h3 id="2048-game">2048 game</h3>
+<img class="project-card-img" src="https://github.com/megaboich/2048/raw/master/2048-demo.gif">
+</img>
+<p>2048 is a single-player sliding block puzzle game. You need to
+move blocks in order to combine the same tiles. The goal is to
+reach 2048 or a maximum you can.</p>
+<p>This is just another implementation of <a href="https://github.com/gabrielecirulli/2048">2048 Game</a> initially written by Gabriele Cirulli.
+Fun project to get my hands to work with some technologies.</p>
+<p>Demo is deployed here: <a href="https://megaboich.github.io/2048/">https://megaboich.github.io/2048/</a>.</p>
+<p>Main goal of this project was to make me more familiar with TypeScript programming. Also here I used amazing JavaScript library for canvas rendering <a href="https://www.pixijs.com/">PixiJS</a>.</p>
+<hr>
+<h3 id="javascript-map-parser">Javascript Map Parser</h3>
+<img class="project-card-img" src="https://raw.githubusercontent.com/megaboich/js-map-parser/master/site/npp/npp.png">
+</img>
+<p><a href="https://github.com/megaboich/js-map-parser">JavaScript map parser</a> is an extension for Visual Studio and Notepad++ to show panel with hierarchy structure of your JavaScript file. I created this tool to improve navigation over monstrous spaghetti-styled legacy JavaScript codebase.</p>
+<p>The Visual Studio version was first published on the <a href="https://marketplace.visualstudio.com/items?itemName=OleksandrBoiko.JavaScriptMapParser">Visual Studio Marketplace</a> on February 17, 2010, and the last update was on May 2, 2016. On October 30, 2026 it had more than 300K installs and was rated 4.66 out of 5 by 76 people. Notepad++ users are not counted there.</p>
+<p>Now this extension is mostly obsolete unless you are stuck in previous era and still working with ES5, especially with huge monstrous spaghetti-styled JavaScript files.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

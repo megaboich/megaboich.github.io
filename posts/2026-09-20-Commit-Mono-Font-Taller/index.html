@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Commit Mono, a very nice coding font, customized</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Commit Mono, a very nice coding font, customized</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">September 20, 2026</span>
+            
+            
+            <span class="tag">7 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Tools</span>
+            
+            <span class="tag">Fonts</span>
+            
+            <span class="tag">AI</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<p>I read a lot of code, and on some days it is indeed most of my day. And it is not only code: the best coding harnesses like <a href="https://pi.dev">Pi</a> and <a href="https://opencode.ai">OpenCode</a> work in the terminal, so all the conversations with AI agents are in a monospaced font as well. So this font is something I look at more than anything else. Recently one of my colleagues recommended me <a href="https://commitmono.com/">Commit Mono</a>, and compared to other monospaced fonts I tried it is very nice to read. It looks calm and neutral, and words look more like normal words and not like a row of letters in boxes.</p>
+<p>The font website has a lot of customization settings out of the box, so I picked the ones I liked and downloaded a customized build. Then I wanted letters a bit taller, which is not possible on the website, so on top of that I added one vertical stretch with a small Python script. All the real work of designing the font was done by its author, my part is only some settings and this one tweak. In this article I want to describe what makes Commit Mono so good and how I customized it.</p>
+<p>My customized build is called CommitMonoOlekV4, and it can be downloaded at the end of this post. It is also used now for all code on this website, so all code snippets here are in fact a demo.<!--cut--></p>
+<h2 id="neutral-programming-typeface">Neutral programming typeface</h2>
+<p>Commit Mono is made by <a href="https://github.com/eigilnikolajsen/commit-mono">Eigil Nikolajsen</a>. On the website it is described as &quot;an anonymous and neutral coding font focused on creating a better reading experience&quot;. The idea is that a coding font should not attract attention to itself. The website quotes the Super Normal Manifesto by Jasper Morrison:</p>
+<blockquote>
+<p>There are better ways to design than putting a big effort into making something look special. Special is generally less useful than normal, and less rewarding in the long term.</p>
+</blockquote>
+<p>Since most code is written using ASCII characters, these characters got the most attention. Also characters which are easy to confuse (like <code>0</code> and <code>O</code>, <code>1</code>, <code>l</code> and <code>I</code>) are clearly different, and there is even a small game &quot;Guess the Character&quot; on the website to check it.</p>
+<h2 id="smart-kerning">Smart kerning</h2>
+<p>The feature I like the most is smart kerning. In a normal monospaced font every letter is centered in a box of the same width. This is fine for <code>m</code> or <code>w</code>, but narrow letters like <code>i</code>, <code>l</code> or <code>r</code> get a lot of empty space around them, and words look uneven, with holes inside.</p>
+<p>Commit Mono still keeps every letter in a box of the same width, so columns are aligned and nothing breaks in the editor. But it looks at each letter between its two neighbours. If the neighbours are of different width classes, the middle letter slides a little bit closer to the narrow one. The website shows this with the word &quot;moi&quot;: the <code>o</code> is moved 44 units to the right (of 1000 units in the font size), so the space between <code>m</code>, <code>o</code> and <code>i</code> becomes even. The same is applied to all letters, and the author says it &quot;improves overall word spacing and makes sublexical units easier to tell apart, therefore improving reading speed and accuracy&quot;.</p>
+<p>Here you can try it yourself. Switch the toggle and look at the double <code>m</code> in &quot;programming&quot;, this is where the difference is the most noticeable:</p>
+<div class="box kerning-demo">
+<link rel="stylesheet" href="kerning-demo.css">
+<label class="checkbox kerning-toggle">
+<input type="checkbox" checked>
+Smart kerning <span class="kerning-on">ON</span><span class="kerning-off">OFF</span>
+</label>
+<p class="kerning-text">Programming with<br>Commit Mono font</p>
+<p class="kerning-text kerning-small">summary, commit, minimum, illusion</p>
+</div>
+<p>With kerning off, the two <code>m</code> letters are squeezed into their boxes and look glued together, while narrow letters like <code>i</code> and <code>l</code> are surrounded by holes. With kerning on, the spacing is much more even.</p>
+<p>Technically all of this is done with the standard OpenType feature <code>calt</code> (contextual alternates), so it is not real kerning: each letter has several shifted copies, and the font picks the right one depending on neighbours. In code editors it is switched on together with ligatures. For example in VS Code these two settings are needed:</p>
+<pre><code class="language-json">&quot;editor.fontFamily&quot;: &quot;CommitMonoOlekV4&quot;,
+&quot;editor.fontLigatures&quot;: true,
+</code></pre>
+<p>Browsers enable <code>calt</code> by default, so on web pages it just works.</p>
+<h2 id="customizing-on-the-website">Customizing on the website</h2>
+<p>Another nice thing is that <a href="https://commitmono.com/">commitmono.com</a> generates the font right in the browser with your own settings. It is possible to choose:</p>
+<ul>
+<li>Weight. The recommendation is 400 for dark mode and 450 for light mode.</li>
+<li>Letter spacing. It does not change the letters, only the space between them.</li>
+<li>Line height.</li>
+<li>Features and alternate characters. Chosen alternates are baked into the font, so they work without any special settings.</li>
+<li>A custom name, so the font becomes <code>CommitMono-YourName</code>. This is useful to have several versions installed at the same time.</li>
+</ul>
+<p>So I just chose the settings and named the result CommitMonoOlekV2: weight 450, a bit tighter letter spacing (580 units per letter instead of 600) and taller line height. Everything else is the original Commit Mono. It is licensed under the <a href="https://scripts.sil.org/OFL">SIL Open Font License</a>, so it is fine to modify it and share modified versions.</p>
+<h2 id="making-letters-taller">Making letters taller</h2>
+<p>After a couple of days of using it I wanted letters to be a bit taller, while keeping the same width. This is not something that the website can do: line height only adds space between lines, and the letters stay the same.</p>
+<p>So I asked an AI agent to help. I used <a href="https://pi.dev">Pi</a>, a coding agent, with GPT-5.6 Sol model (in September 2026). It installed <a href="https://github.com/fonttools/fonttools">fontTools</a>, a Python library for reading and writing font files, and wrote a script that stretches all glyphs vertically.</p>
+<p>Commit Mono files are OpenType fonts with CFF outlines. The script draws every glyph through a transform pen, which multiplies all Y coordinates and keeps X coordinates and widths as they were. Here is the main part:</p>
+<pre><code class="language-python">SCALE_Y = 1.05
+
+font = TTFont(source, recalcBBoxes=True, recalcTimestamp=False)
+glyph_set = font.getGlyphSet()
+cff = font[&quot;CFF &quot;].cff
+top = cff.topDictIndex[0]
+transform = Transform(1, 0, 0, SCALE_Y, 0, 0)
+
+for glyph_name in font.getGlyphOrder():
+    width = font[&quot;hmtx&quot;][glyph_name][0]
+    pen = T2CharStringPen(width, glyph_set)
+    glyph_set[glyph_name].draw(TransformPen(pen, transform))
+    top.CharStrings[glyph_name] = pen.getCharString(
+        private=top.Private, globalSubrs=cff.GlobalSubrs
+    )
+</code></pre>
+<p>Stretching only the glyphs is not enough, because then tall letters would be cut and lines would overlap. So all vertical metrics are multiplied by the same factor: ascender and descender in <code>hhea</code> and <code>OS/2</code> tables, Windows clipping values, sub- and superscript positions, strikeout and underline. Then the family name is replaced in the <code>name</code> and <code>CFF</code> tables, so the new version can be installed next to the old one.</p>
+<p>The first try was 10% taller, and it was called V3. After testing it in the editor it turned out to be too much, so V4 is 5% taller than V2. The text still takes the same width on the screen, only lines are a bit higher.</p>
+<h2 id="is-it-still-the-same-font">Is it still the same font?</h2>
+<p>The new files were noticeably smaller than V2, about 213 KB instead of 275 KB. That was suspicious, so I asked to compare everything. The agent checked that both versions have the same 1932 glyphs in the same order, the same 1175 Unicode characters, the same widths, and a byte-identical <code>GSUB</code> table, which contains smart kerning and all other features.</p>
+<p>The smaller size comes from a more compact encoding. fontTools writes the outlines with shorter drawing commands. And the old file stored the same advance width separately for each of the 1932 glyphs, while in a monospaced font it can be stored only once.</p>
+<h2 id="download">Download</h2>
+<p>Here are the files of CommitMonoOlekV4, ready to install:</p>
+<ul>
+<li><a href="/assets/fonts/CommitMonoOlekV4-450-Regular.otf">CommitMonoOlekV4-450-Regular.otf</a></li>
+<li><a href="/assets/fonts/CommitMonoOlekV4-450-Italic.otf">CommitMonoOlekV4-450-Italic.otf</a></li>
+<li><a href="/assets/fonts/CommitMonoOlekV4-700-Regular.otf">CommitMonoOlekV4-700-Regular.otf</a></li>
+<li><a href="/assets/fonts/CommitMonoOlekV4-700-Italic.otf">CommitMonoOlekV4-700-Italic.otf</a></li>
+<li>or all of them in one archive: <a href="/assets/fonts/CommitMonoOlekV4.zip">CommitMonoOlekV4.zip</a></li>
+</ul>
+<p>The font is licensed under the <a href="/assets/fonts/OFL.txt">SIL Open Font License</a>, same as the original. On a Mac the files can be installed with Font Book, on Windows with right click and &quot;Install&quot;. After that restart the editor and select <code>CommitMonoOlekV4</code> as the font.</p>
+<p>If you want to make your own version, start at <a href="https://commitmono.com/">commitmono.com</a>, it is really worth a try.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

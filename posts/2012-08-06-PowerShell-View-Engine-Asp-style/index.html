@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>PowerShell Html Templating Engine - Asp style</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">PowerShell Html Templating Engine - Asp style</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">August 6, 2012</span>
+            
+            
+            <span class="tag">5 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Powershell</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<p>Hi everyone. In this article I want to describe implementation of my custom html templating engine for PowerShell.</p>
+<p>This one is simple and powerful enough. Here is a list of requirements that I had implemented:</p>
+<ol>
+<li>View templates are stored separately from code in Html files.</li>
+<li>Support of nested Views, inline PowerShell code.</li>
+<li>Using Asp-style separators &lt;%...%&gt;.</li>
+<li>Works everywhere, only PowerShell 2.0 is required without additional tweaks.</li>
+</ol>
+<!--cut-->
+<p>First of all I was trying to find something already implemented, but with bad luck. Someone tries Razor engine, but this is very complicated and requires additional tweaks. Someone indeed implemented their own engines, but with custom syntax and with fewer features than I needed. So when a bright idea came into my mind I implemented my own view engine.</p>
+<p>Here is a result screenshot of template to use with my engine.</p>
+<p><img src="image_2.png" alt=""></p>
+<h4 id="implemetation-story">Implemetation story</h4>
+<p>When I was discovering PowerShell first I was thrilled by inline string evaluation functionality. For example your expression:</p>
+<pre><code class="language-powershell">$test = &quot;&lt;div&gt; $($env:COMPUTERNAME)&lt;/div&gt;&quot;
+</code></pre>
+<p>Will be evaluated at runtime to something like this:</p>
+<pre><code class="language-html">&lt;div&gt;MYCOMPUTER&lt;/div&gt;
+</code></pre>
+<p>This is indeed very simple View Engine right out of the box. With it you can build complicated template like this:</p>
+<pre><code class="language-powershell">$Model = @{}
+$Model.Title = 'Hello, this is a test'
+$Model.Clients = @('Ivan', 'Sergiy', 'John')
+
+#view render method 1 - embedded powershell string evaluation
+$html = &quot;
+&lt;h1&gt;
+	$($Model.Title)
+&lt;/h1&gt;
+&lt;div class=&quot;&quot;test&quot;&quot;&gt;
+	&lt;ul&gt;
+		$( foreach($client in $Model.Clients) {&quot;
+		&lt;li&gt;
+			$( $client )
+		&lt;/li&gt;
+		&quot;})
+	&lt;/ul&gt;
+&lt;/div&gt;&quot;
+Write-Host $html
+</code></pre>
+<p>As you can see PowerShell parser is able to distinguish nested language expressions inside <code>$( ... )</code> blocks, and this is extremely useful for implementation of loops and if-then statements.</p>
+<p>This method is ready for use for small templates, but it has some cons:</p>
+<ol>
+<li>View markup is included in code, rather than separate file.</li>
+<li>Nested views not supported.</li>
+<li>Syntax is complicated, when you miss <code>)</code>, <code>}</code> or <code>&quot;</code>. It is hard to find where the problem is.</li>
+<li>You need to encode double quotes.</li>
+</ol>
+<p>Ok, first two problems can be solved with next function:</p>
+<pre><code class="language-powershell">function RenderViewNativePowerShell(
+	[Parameter(Mandatory=$true)][string] $viewName,
+	[Parameter(Mandatory=$true)][Object] $model
+)
+{
+	$viewFileName = Resolve-Path ('Views\' + $viewName)
+	$templateContent = Get-Content $viewFileName | Out-String
+	return $ExecutionContext.InvokeCommand.ExpandString('&quot;' + $templateContent + '&quot;')
+}
+</code></pre>
+<p>It loads template from file and then uses the PowerShell string evaluation on it. (It was hard to find this function in language reference).</p>
+<p>This function can be called this way:</p>
+<pre><code class="language-powershell">#view render method 2 - templates powershell evaluation
+RenderViewNativePowerShell 'Test_ps.html' $Model
+</code></pre>
+<p>It supports nested views, take a look at view <code>test_ps.html</code></p>
+<pre><code class="language-powershell">$( RenderViewNativePowerShell 'header_ps.html' $Model )
+
+&lt;div class=&quot;&quot;test&quot;&quot;&gt;
+	&lt;ul&gt;
+		 $( foreach($client in $Model.Clients) {&quot;
+			&lt;li&gt;
+				$( $client )
+			&lt;/li&gt;
+		&quot;})
+	&lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Ok, this is already a very useful implementation, but what about using Asp-like <code>&lt;% ... %&gt;</code> formatting? This special closures has support in many specialized text editors and very convenient for many people. So, next idea was simply replace Asp <code>&lt;% ... %&gt;</code> braces to its PowerShell equivalents <code>$( ... )</code>. But this was not so simple because PowerShell syntax needs to be different in cases when nested code blocks used.</p>
+<p>After some struggling I was able to implement Regex parsing expression and intelligent replace logic. Here it is:</p>
+<pre><code class="language-powershell">function RenderView(
+	[Parameter(Mandatory=$true)][string] $viewName,
+	[Parameter(Mandatory=$true)][Object] $model
+)
+{
+	$viewFileName = Resolve-Path ('Views\' + $viewName)
+	$templateContent = Get-Content $viewFileName | Out-String
+
+	$rx = New-Object System.Text.RegularExpressions.Regex('(&lt;%.*?%&gt;)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+	$res = @()
+	$splitted = $rx.Split($templateContent);
+	foreach($part in $splitted)
+	{
+		if ($part.StartsWith('&lt;%') -and $part.EndsWith('%&gt;')) #transform &lt;%...%&gt; blocks
+		{
+			$expr = $part.Substring(2, $part.Length-4) #remove &lt;%%&gt;
+			$normExpr = $expr.Replace('`n','').Replace('`r','').Trim();
+
+			$startClosure = '$('
+			$endClosure = ')'
+			if ($normExpr.EndsWith('{')) {
+				$endClosure = '&quot;'
+			}
+			if ($normExpr.StartsWith('}')) {
+				$startClosure = '&quot;'
+			}
+			$res += @($startClosure + $expr + $endClosure)
+		}
+		else #encode text blocks
+		{
+			$expr = $part.Replace('&quot;', '&quot;&quot;');
+			$res += @($expr)
+		}
+	}
+	$viewExpr = $res -join ''
+	return $ExecutionContext.InvokeCommand.ExpandString('&quot;' + $viewExpr + '&quot;')
+}
+</code></pre>
+<p>This code also replaces <code>&quot;</code> to <code>&quot;&quot;</code>, so it is ready for Html views.</p>
+<p>Here is screenshot from Visual Studio:</p>
+<p><img src="image_4.png" alt=""></p>
+<p>All source code with samples and tests you can find on <a href="https://github.com/megaboich/PowerShellViewEngine">GitHub</a>.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

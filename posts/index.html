@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Technical blog and experiments</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Technical blog and experiments</h1>
+
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2026-10-29-Demo-Video-With-AI-Agent/">Making a narrated demo video with an AI agent</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">October 29, 2026</span>
+            
+            
+            <span class="tag">11 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">AI</span>
+            
+            <span class="tag">Tools</span>
+            
+            <span class="tag">Video</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>When I was publishing <a href="/posts/2026-10-19-DejaReview/">DejaReview</a> to the VS Code Marketplace, I wanted a short demo video for it, and also a GIF for the Marketplace page. I never made such videos before, and editing a video by hand, with all the cutting, subtitles and &quot;so yeah&quot; and &quot;basically&quot; from my live talking, did not look very attractive.</p>
+<p>So I asked an AI agent to do all of it: transcribe my voice, decide what to cut, rewrite my narration into clean sentences, generate a new voice, burn in subtitles and render the final video. All the video tools ran locally on my Mac and were free. A 9 minutes recording became a 4 minutes video, and it took about 45 minutes after the recording was finished.</p>
+<p>In this article I want to describe how it went, which tools were used, and what I learned.
+                <div>
+                    <a class="has-text-primary" href="/posts/2026-10-29-Demo-Video-With-AI-Agent/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2026-10-19-DejaReview/">Reviewing AI code changes in VS Code with DejaReview</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">October 19, 2026</span>
+            
+            
+            <span class="tag">10 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Tools</span>
+            
+            <span class="tag">AI</span>
+            
+            <span class="tag">VS Code</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>These days a big part of my work is reviewing code written by AI agents, and they are very willing to produce huge changes. Several hundreds of changed files is nothing unusual, and without a well established review routine this can easily become quite stressful. It is very tempting to just &quot;accept it all&quot;.</p>
+<p>So I tried to bring some discipline into it. Code that I reviewed and found acceptable I stage with git, so staging means &quot;accepted&quot;. For code I didn't like I wanted an easy way to leave notes for the agent and keep track of them. Without that I kept reviewing the same files again and again, with a strong feeling of déjà vu, not sure if I had already written a note about it or not.</p>
+<p>So I wrote a small VS Code extension and called it DejaReview. The idea is not super original, and a colleague of mine already had his own take on it, but this one does exactly what I want. And I did not write a single line of it by hand: all code was generated by AI agents, I only gave them instructions.
+                <div>
+                    <a class="has-text-primary" href="/posts/2026-10-19-DejaReview/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2026-09-20-Commit-Mono-Font-Taller/">Commit Mono, a very nice coding font, customized</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">September 20, 2026</span>
+            
+            
+            <span class="tag">7 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Tools</span>
+            
+            <span class="tag">Fonts</span>
+            
+            <span class="tag">AI</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>I read a lot of code, and on some days it is indeed most of my day. And it is not only code: the best coding harnesses like <a href="https://pi.dev">Pi</a> and <a href="https://opencode.ai">OpenCode</a> work in the terminal, so all the conversations with AI agents are in a monospaced font as well. So this font is something I look at more than anything else. Recently one of my colleagues recommended me <a href="https://commitmono.com/">Commit Mono</a>, and compared to other monospaced fonts I tried it is very nice to read. It looks calm and neutral, and words look more like normal words and not like a row of letters in boxes.</p>
+<p>The font website has a lot of customization settings out of the box, so I picked the ones I liked and downloaded a customized build. Then I wanted letters a bit taller, which is not possible on the website, so on top of that I added one vertical stretch with a small Python script. All the real work of designing the font was done by its author, my part is only some settings and this one tweak. In this article I want to describe what makes Commit Mono so good and how I customized it.</p>
+<p>My customized build is called CommitMonoOlekV4, and it can be downloaded at the end of this post. It is also used now for all code on this website, so all code snippets here are in fact a demo.
+                <div>
+                    <a class="has-text-primary" href="/posts/2026-09-20-Commit-Mono-Font-Taller/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2026-08-15-Yet-Another-Tuner/">Yet another guitar tuner in web browser</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">August 15, 2026</span>
+            
+            
+            <span class="tag">8 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">JavaScript</span>
+            
+            <span class="tag">Web Audio</span>
+            
+            <span class="tag">Guitar</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>I like playing the guitar from time to time, and every time before playing I need a tuner. Usually it is an app on my phone, and I tried quite a few of them. The story was always the same: a full-screen ad right at the moment when I want to tune, a banner over the needle, or a &quot;Pro&quot; subscription for very basic features. All I wanted is to pluck a string and see if it is flat or sharp.</p>
+<p>At the same time I had a lot of interest in Web Audio APIs and wanted to try them on something real. So, when a bright idea came into my mind, I started to write my own tuner. It works directly in web browser, has no ads and no backend, and sound from the microphone never leaves the device.</p>
+<p>You can try it here: <a href="https://olekboiko.com/yet-another-tuner/">olekboiko.com/yet-another-tuner</a>.
+                <div>
+                    <a class="has-text-primary" href="/posts/2026-08-15-Yet-Another-Tuner/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2019-03-27-http-for-beginners/">HTTP for beginners</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">March 27, 2019</span>
+            
+            
+            <span class="tag">10 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">HTTP</span>
+            
+            <span class="tag">REST</span>
+            
+            <span class="tag">API</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <blockquote>
+<p>This article is an introduction for beginners into HTTP, API and REST matters. Big thanks to excellent documentation from MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</p>
+</blockquote>
+<p>HTTP is a protocol which allows the fetching of resources, such as HTML documents. It is the foundation of any data exchange on the Web and a client-server protocol, which means requests are initiated by the recipient, usually the Web browser. A complete document is reconstructed from the different sub-documents fetched, for instance text, layout description, images, videos, scripts, and more.</p>
+
+                <div>
+                    <a class="has-text-primary" href="/posts/2019-03-27-http-for-beginners/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2016-04-02-Setting-Up-Git-Svn-From-Very-Beginning/">Setting up Git-Svn from very beginning</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">April 2, 2016</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Git</span>
+            
+            <span class="tag">Svn</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>This post is a very short instruction how to set up and configure running git-svn with legacy SVN repository.</p>
+
+                <div>
+                    <a class="has-text-primary" href="/posts/2016-04-02-Setting-Up-Git-Svn-From-Very-Beginning/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2013-06-11-Javascript-implementation-of-custom-AStar-Algorithm/">Javascript implementation of custom A-Star algorithm</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">June 11, 2013</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">JavaScript</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>Recently I had a lots of interest in Javascript and decided to implement something funny and interesting.
+For me it was a problem of finding a way through the maze.
+So, I searched a bit and found that this kind of problems are usually solved with path finding algorithms and one of those is A-Star.
+                <div>
+                    <a class="has-text-primary" href="/posts/2013-06-11-Javascript-implementation-of-custom-AStar-Algorithm/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2012-08-06-PowerShell-View-Engine-Asp-style/">PowerShell Html Templating Engine - Asp style</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">August 6, 2012</span>
+            
+            
+            <span class="tag">5 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Powershell</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>Hi everyone. In this article I want to describe implementation of my custom html templating engine for PowerShell.</p>
+<p>This one is simple and powerful enough. Here is a list of requirements that I had implemented:</p>
+<ol>
+<li>View templates are stored separately from code in Html files.</li>
+<li>Support of nested Views, inline PowerShell code.</li>
+<li>Using Asp-style separators &lt;%...%&gt;.</li>
+<li>Works everywhere, only PowerShell 2.0 is required without additional tweaks.</li>
+</ol>
+
+                <div>
+                    <a class="has-text-primary" href="/posts/2012-08-06-PowerShell-View-Engine-Asp-style/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2012-03-02-Diff-Merge-Tool-Selector/">Diff Merge Tool Selector</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">March 2, 2012</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Tools</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>DiffMergeSelector might be a helpful tool in case you have several favorite diff/merge tools. It works like &quot;proxy&quot; between your diff tools and your IDE, SVN, Git, Mercurial or any other development tool.
+                <div>
+                    <a class="has-text-primary" href="/posts/2012-03-02-Diff-Merge-Tool-Selector/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2011-11-07-Creating-OpenSocial-gadget/">Creating OpenSocial gadget with Asp.Net MVC</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">November 7, 2011</span>
+            
+            
+            <span class="tag">7 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">OpenSocial</span>
+            
+            <span class="tag">C#</span>
+            
+            <span class="tag">Asp.Net MVC</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p><a href="http://docs.opensocial.org/display/OS/Home">OpenSocial</a> is a great standard that allows implement Web-gadgets for various web-sites and portals (they are called OpenSocial Containers). Initially developed for Social Networks and driven by Google and <a href="http://code.google.com/apis/gadgets/">Google gadgets</a> this standard is also becoming popular in corporate web portals sector.
+                <div>
+                    <a class="has-text-primary" href="/posts/2011-11-07-Creating-OpenSocial-gadget/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <a class="title is-4" href="/posts/2011-08-12-Creating-Simple-RSS-Reader/">Creating Simple RSS Reader Web application with C# and Asp.Net MVC.</a>
+
+                <br />
+                <br />
+
+                
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">August 12, 2011</span>
+            
+            
+            <span class="tag">4 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">C#</span>
+            
+            <span class="tag">RSS</span>
+            
+            <span class="tag">Asp.Net MVC</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+
+                <p>In this article I'll create simple web application using Microsoft Asp.Net MVC framework. The main functionality is to read RSS feed and to show feed contents in simple HTML view.
+                <div>
+                    <a class="has-text-primary" href="/posts/2011-08-12-Creating-Simple-RSS-Reader/">Read more -></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

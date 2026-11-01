@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>HTTP for beginners</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">HTTP for beginners</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">March 27, 2019</span>
+            
+            
+            <span class="tag">10 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">HTTP</span>
+            
+            <span class="tag">REST</span>
+            
+            <span class="tag">API</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<blockquote>
+<p>This article is an introduction for beginners into HTTP, API and REST matters. Big thanks to excellent documentation from MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</p>
+</blockquote>
+<p>HTTP is a protocol which allows the fetching of resources, such as HTML documents. It is the foundation of any data exchange on the Web and a client-server protocol, which means requests are initiated by the recipient, usually the Web browser. A complete document is reconstructed from the different sub-documents fetched, for instance text, layout description, images, videos, scripts, and more.</p>
+<!--cut-->
+<p><img src="images/Fetching_a_page.png" alt=""></p>
+<p><em>Image is taken from the MDN website: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</em></p>
+<h2 id="http-is-a-client-server-protocol">HTTP is a client-server protocol</h2>
+<p>Each individual request is sent to a server, which will handle it and provide an answer, called the response. Between this request and response there are numerous entities, collectively designated as proxies, which perform different operations and act as gateways or caches, for example.</p>
+<p><img src="images/Client-server-chain.png" alt=""></p>
+<p><em>Image is taken from the MDN website: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</em></p>
+<ul>
+<li>Client: the user-agent</li>
+<li>The Web server</li>
+<li>Proxies</li>
+</ul>
+<h2 id="http-flow">HTTP flow</h2>
+<ol>
+<li>Open TCP connection</li>
+<li>Send a request</li>
+</ol>
+<pre><code>GET / HTTP/1.1
+Host: developer.mozilla.org
+Accept-Language: fr
+</code></pre>
+<ol start="3">
+<li>Receive a response:</li>
+</ol>
+<pre><code>HTTP/1.1 200 OK
+Date: Sat, 09 Oct 2010 14:28:02 GMT
+Server: Apache
+Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT
+ETag: &quot;51142bc1-7449-479b075b2891b&quot;
+Accept-Ranges: bytes
+Content-Length: 29769
+Content-Type: text/html
+
+&lt;!DOCTYPE html... (here comes the 29769 bytes of the requested web page)
+</code></pre>
+<ol start="4">
+<li>Close connection</li>
+</ol>
+<h2 id="http-request">HTTP Request</h2>
+<p><img src="images/HTTP_Request.png" alt=""></p>
+<p><em>Image is taken from the MDN website: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</em></p>
+<p>Methods: GET, POST, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS">OPTIONS</a>, HEAD</p>
+<p>Headers:</p>
+<ul>
+<li><strong>Accept</strong>: application/json</li>
+<li><strong>Accept-Encoding</strong>: gzip, deflate, br</li>
+<li><strong>Accept-Language</strong>: en-US,en;q=0.9</li>
+<li><strong>Content-Type</strong>: application/json;charset=UTF-8</li>
+<li><strong>Cookie</strong>: _ga=GA1.1.279945238.1538047637; BAYEUX_BROWSER=xl0ydxss3t6c1wn8; glide_user_route=glide.bc4183be9d54d8709bf320ec7b40ddea; glide_user_activity=&quot;U0N2Mzp1b29EeERpTUcrL2xtNzhZMHpEdmx4TmxJMUx5V3U5STozSy9JM1F5ZEF3Y1JzUWJsRGYrTTlnaVBVUk5PU1hiK2ZicE1pRlV5cUZzPTo2ODE2Zjc5Y2MwYTgwMTY0MDFjNWEzM2JlMDRiZTQ0MQ==&quot;; JSESSIONID=4587CA945CDF2900CF1172589E4A623E;</li>
+<li><strong>Cache-Control</strong>: no-cache</li>
+<li><strong>Referer</strong>: <a href="http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&amp;jvar_breakdown=0df47e02d7130100b96d45a3ce610399&amp;jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4">http://localhost:9090/$pa_detailed.do?jvar_uuid=fb007202d7130100b96d45a3ce6103b4&amp;jvar_breakdown=0df47e02d7130100b96d45a3ce610399&amp;jvar_elements=c1a861a7b90033000099145cdb12f0b4,81a861a7b90033000099145cdb12f0b4</a></li>
+<li><strong>User-Agent</strong>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</li>
+<li><strong>X-UserToken</strong>: 13d3dbe377103300fde1bfc2681061bc851f6637198786af5654ffa00b5453c904e12fd7</li>
+</ul>
+<p>Body is optional</p>
+<h2 id="http-response">HTTP Response</h2>
+<p><img src="images/HTTP_Response.png" alt=""></p>
+<p><em>Image is taken from the MDN website: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview</a>.</em></p>
+<p>Headers:</p>
+<ul>
+<li><strong>Content-Type</strong>: text/html</li>
+</ul>
+<p>Body is optional</p>
+<h2 id="http-api">HTTP API</h2>
+<p>An API is an application programming interface. It is a set of rules that allow programs to talk to each other. The developer creates the API on the server and allows the client to talk to it.</p>
+<h3 id="soap">SOAP</h3>
+<p>SOAP (Simple Object Access Protocol) is its own protocol based on XML. It could be used with different transport protocols, but mostly used over HTTP because it has the advantage that it is a protocol that is open to firewalls, well-understood and widely-supported. Thus, web services can be accessed and exposed via technology already in-place.</p>
+<pre><code class="language-xml">HTTP/1.1 200 OK
+Content-Type: text/xml; charset=&quot;utf-8&quot;
+Content-Length: nnnn
+
+    &lt;SOAP-ENV:Envelope
+  xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;
+  SOAP-ENV:encodingStyle=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;/&gt;
+   &lt;SOAP-ENV:Header&gt;
+       &lt;t:SessionOrder
+         xmlns:t=&quot;http://example.com&quot;
+         xsi:type=&quot;xsd:int&quot; mustUnderstand=&quot;1&quot;&gt;
+           5
+       &lt;/t:SessionOrder&gt;
+   &lt;/SOAP-ENV:Header&gt;
+   &lt;SOAP-ENV:Body&gt;
+       &lt;GetStockQuote
+         xmlns=&quot;http://someexample.com&quot;&gt;
+           &lt;Price&gt;MSFT&lt;/Price&gt;
+       &lt;/GetStockQuote&gt;
+   &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</code></pre>
+<h3 id="rest">REST</h3>
+<p>Beginners can assume a REST API means an HTTP service that can be called using standard web libraries and tools using JSON payloads.</p>
+<p>More info: <a href="https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/">https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/</a></p>
+<p>Comparison of SOAP vs REST: <a href="https://www.upwork.com/hiring/development/soap-vs-rest-comparing-two-apis/">https://www.upwork.com/hiring/development/soap-vs-rest-comparing-two-apis/</a></p>
+<h4 id="how-to-use-rest-api-example">How to use REST API Example</h4>
+<p>Software: <a href="https://www.getpostman.com/">Postman</a></p>
+<p>API Provider: <a href="https://www.thetvdb.com/">thetvdb.com</a></p>
+<p>API docs: <a href="https://api.thetvdb.com/swagger">https://api.thetvdb.com/swagger</a></p>
+<p>API base url: <code>https://api.thetvdb.com</code></p>
+<h5 id="login">Login</h5>
+<p>POST <code>/login</code></p>
+<p>Body:</p>
+<pre><code class="language-json">{
+  &quot;apikey&quot;: &quot;MW5TK02DUDMSH9A4&quot;,
+  &quot;username&quot;: &quot;mega.boichetq&quot;,
+  &quot;userkey&quot;: &quot;UA27FF66EENM8BSR&quot;
+}
+</code></pre>
+<p>Response:</p>
+<pre><code class="language-json">{
+  &quot;token&quot;: &quot;eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTM3ODQyNTgsImlkIjoiIiwib3JpZ19pYXQiOjE1NTM2OTc4NTgsInVzZXJpZCI6NTEzNDk3LCJ1c2VybmFtZSI6Im1lZ2EuYm9pY2hldHEifQ.izEns8bjBUI6MHAPlVhWxfti-Ynyx6VxZbGnvTXONcPq-lW6R0ojGYtBUNs04SF4QYyPcn06lm5z9dmxs83Av3-ZdM6y-aeunuvY_ioy4VXpzJw5L_CiPmmQUTTGnHEAzJRlZodU18TGwMB_hAxwvEJD_BN1nhafU5ZvW43kL4KVh4PyG1N7Gh-ZZsPcKZRzI3nCIHVkfcp6RkNannbnABeAnLguDjvwfhOz3SQQtNfhc9WN0-OFrnP_IfpKJnQxGo0v7FxP8oSmFHCUqigDf8qlsMPJ3LfKJ7mB8AeN0Hh_q-oRU5Jnl-E-RZpPHLqeveTJcTIjfk-44V9SVHk3ow&quot;
+}
+</code></pre>
+<h5 id="search">Search</h5>
+<p>GET <code>search/series</code></p>
+<p>Headers:</p>
+<ul>
+<li><strong>Authorization</strong>: Bearer XXXX...XXXX</li>
+</ul>
+<p>Query:</p>
+<p><code>?slug=one-piece</code></p>
+<p>Response:</p>
+<pre><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;aliases&quot;: [],
+      &quot;banner&quot;: &quot;graphical/81797-g2.jpg&quot;,
+      &quot;firstAired&quot;: &quot;1999-10-20&quot;,
+      &quot;id&quot;: 81797,
+      &quot;network&quot;: &quot;Fuji TV&quot;,
+      &quot;overview&quot;: &quot;It was a time when pirates ruled the seas. Several bands of pirates were battling over the great hidden treasure, One Piece, which was left by the now legendary pirate captain, Gold Roger. There was a young boy who admired the pirates, his name was Monkey D. Luffy. One day, he mistakenly eats the devil's fruit and turns himself into a rubber human being.\r\n\r\nTen years have passed since that incident. Luffy sets out to sail all alone. He sets out to become a great pirate captain and that's when his great adventure begins. \&quot;I'm going to be the Pirate King! I'm going to get One Piece!\&quot;.&quot;,
+      &quot;seriesName&quot;: &quot;One Piece&quot;,
+      &quot;slug&quot;: &quot;one-piece&quot;,
+      &quot;status&quot;: &quot;Continuing&quot;
+    }
+  ]
+}
+</code></pre>
+<h4 id="rest-is-a-set-of-rules-and-recommendations-not-actually-a-protocol">REST is a set of rules and recommendations, not actually a protocol.</h4>
+<p>REST determines how the API looks like. It stands for “Representational State Transfer”. It is a set of rules that developers follow when they create their API.</p>
+<p>Using different HTTP methods:</p>
+<ul>
+<li><code>POST</code> - create new resource</li>
+<li><code>GET</code> - read (fetch) resource</li>
+<li><code>PUT</code> and <code>PATCH</code> - update resource</li>
+<li><code>DELETE</code> - remove resource</li>
+</ul>
+<p>Often abbreviated as CRUD - Create, Read, Update, Delete</p>
+<p>Url schemas:</p>
+<ul>
+<li>POST <code>/users/</code> with payload <code>{ &quot;name&quot;: &quot;alex&quot;, &quot;age&quot;: 34 }</code> creates new user with name <code>alex</code>.</li>
+<li>GET <code>/users/alex</code> - returns user information for user with name <code>alex</code></li>
+<li>PUT <code>/users/alex</code> with payload <code>{ &quot;age&quot;: 35 }</code> updates age for user <code>alex</code></li>
+<li>GET <code>/users/alex/repos</code> - returns all repositories for user <code>alex</code></li>
+</ul>
+<h3 id="graphql">GraphQL</h3>
+<blockquote>
+<p><a href="https://graphql.org/">GraphQL</a> is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
+</blockquote>
+<p>Main differences from REST:</p>
+<ul>
+<li>You query your data with special GraphQL syntax instead of bogus urls and body parameters.</li>
+<li>You can retrieve only required of fields of objects, no need to download unnecessary data.</li>
+<li>Combining several queries in one request.</li>
+<li>API schema and documentation are integrated thanks to GraphQL tooling and infrastructure.</li>
+</ul>
+<p>GraphQL query</p>
+<pre><code>author(id: &quot;7&quot;) {
+  id
+  name
+  avatarUrl
+  articles(limit: 2) {
+    name
+    urlSlug
+  }
+}
+</code></pre>
+<p>GraphQL query result</p>
+<pre><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;author&quot;: {
+      &quot;id&quot;: &quot;7&quot;,
+      &quot;name&quot;: &quot;Robin Wieruch&quot;,
+      &quot;avatarUrl&quot;: &quot;https://domain.com/authors/7&quot;,
+      &quot;articles&quot;: [
+        {
+          &quot;name&quot;: &quot;The Road to learn React&quot;,
+          &quot;urlSlug&quot;: &quot;the-road-to-learn-react&quot;
+        },
+        {
+          &quot;name&quot;: &quot;React Testing Tutorial&quot;,
+          &quot;urlSlug&quot;: &quot;react-testing-tutorial&quot;
+        }
+      ]
+    }
+  }
+}
+</code></pre>
+<h2 id="http-api-summary">HTTP API Summary</h2>
+<ul>
+<li>
+<p>HTTP is a main transport protocol for the internet. It is widely used for every application: mobile, desktop, embedded or web.</p>
+</li>
+<li>
+<p>HTTP APIs is a way of communications between applications, devices and services.</p>
+</li>
+<li>
+<p>SOAP is a quite old and hard to use protocol. But it is still used in enterprises.</p>
+</li>
+<li>
+<p>Most of modern APIs use various JSON over HTTP implementation more or less REST compliant.</p>
+</li>
+<li>
+<p>GraphQL is a new way of writing and designing APIs which is using special query language to request data and provides JSON as output.</p>
+</li>
+</ul>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

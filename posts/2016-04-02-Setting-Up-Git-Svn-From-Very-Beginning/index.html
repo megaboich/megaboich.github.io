@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Setting up Git-Svn from very beginning</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Setting up Git-Svn from very beginning</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">April 2, 2016</span>
+            
+            
+            <span class="tag">3 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">Git</span>
+            
+            <span class="tag">Svn</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<p>This post is a very short instruction how to set up and configure running git-svn with legacy SVN repository.</p>
+<!--cut-->
+<h2 id="create-git-repository">Create GIT repository</h2>
+<p>First of all it is necessary to init GIT repository and clone it from SVN. And it is good to have some number of recent commits.
+So you need to decide at which starting point you want to have history.
+Usually it is useful to have last year or two, if you want more than your local repository might be very big and slow, also it will take a lot of time to get all that from SVN.
+Initial step is to check out repository at specific version.</p>
+<pre><code class="language-bash"># checkout a specific revision 217000 which dated October 23, 2014
+git svn clone -r 217000 http://url-to-your-svn-repo
+</code></pre>
+<p>After some about 15 minutes (depends on your connection to SVN server and size of your repository) you should have local Git repository for that specific version.
+Then we are going to update it to the most recent version. This will surely take a lot of time (it can take a week, so please keep calm).</p>
+<pre><code class="language-bash">git svn rebase
+</code></pre>
+<p>One more command is to generate <code>.gitignore</code> file from SVN settings.
+This step might be not necessary because you probably is not the first one running this procedure on this repository.
+So it might be already <code>.gitignore</code> file committed by one of your colleagues before. Nevertheless this is the command:</p>
+<pre><code class="language-bash">git svn show-ignore &gt; .gitignore
+</code></pre>
+<h2 id="working-on-everyday-basis">Working on everyday basis</h2>
+<p>Ok, after you created GIT repository you can work with it in any way you want.
+It is very enjoyable to create as many local branches as you want and fast switching between them.
+There are many ways to work with Git and this is not a topic of this article.
+After finishing your work you should merge all changes to 'git-svn' branch and execute</p>
+<pre><code class="language-bash">git svn dcommit
+</code></pre>
+<p>That will push your changes to SVN. If your version is not the latest it will not allow to push changes.
+In this case you need to pull latest code from SVN.</p>
+<pre><code class="language-bash">git svn rebase
+</code></pre>
+<h2 id="svn-externals">SVN externals</h2>
+<p>Workaround: to get svn externals working in git it is possible to get list of all externals via command:</p>
+<pre><code class="language-bash">svn propget svn:externals -R
+</code></pre>
+<p>Then you can execute simple powershell script that downloads files from svn to your git repository.</p>
+<pre><code class="language-powershell">Write-host 'Update svn externals. Version 0.0.1'
+$ext =
+    @(
+        (&quot;build&quot;, &quot;url-to-svn-repo&quot;),
+        (&quot;AutomatedTestScripts\TestServer\Platform&quot;, &quot;url-to-another-svn-repo&quot;),
+        ...
+        (&quot;Platform\PlatformSDK&quot;,&quot;url-to-yet-another-svn-repo&quot;)
+    )
+
+$currentLocation = Split-Path -parent $MyInvocation.MyCommand.Definition
+$projectRoot = $currentLocation + '\..\..\'
+
+Write-Host &quot;R:$projectRoot&quot;
+
+foreach($e in $ext){
+    $folder = $projectRoot + $e[0];
+    $svnPath = $e[1];
+
+    Write-Host &quot;======&quot;
+    Write-Host $folder
+    Write-Host $svnPath
+
+    svn export --force &quot;$svnPath&quot; &quot;$folder&quot;
+}
+</code></pre>
+<p>And if you don't want to see all these files in uncommited state you shoud add them to your <code>.gitignore</code> file.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>

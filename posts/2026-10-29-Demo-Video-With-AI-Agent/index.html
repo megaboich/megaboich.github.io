@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Making a narrated demo video with an AI agent</title>
+    <meta name="description" content="Oleksandr Boiko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/lib/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@coderline/alphatab": "/assets/lib/alphatab/alphaTab.mjs"
+            }
+        }
+    </script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.12.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-uppercase" href="/">
+                <span class="has-text-warning">Oleksandr</span>
+                <span class="has-text-success">Boiko</span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/projects/">Projects</a>
+                <a class="navbar-item" href="/resume/">Résumé</a>
+                <a class="navbar-item" href="/posts/">Blog</a>
+                <a class="navbar-item" href="/songs/">Songs</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-content">
+        <div class="container" style="max-width:960px">
+            <div class="content">
+<h1 class="title">Making a narrated demo video with an AI agent</h1>
+
+<div class="field is-grouped is-grouped-multiline">
+    
+    <div class="control">
+        <div class="tags has-addons">
+            
+            <span class="tag is-warning is-light">October 29, 2026</span>
+            
+            
+            <span class="tag">11 min read</span>
+            
+        </div>
+    </div>
+
+    <div class="control">
+        <div class="tags">
+            
+            <span class="tag">AI</span>
+            
+            <span class="tag">Tools</span>
+            
+            <span class="tag">Video</span>
+            
+        </div>
+    </div>
+
+    <br />
+    
+</div>
+
+<p>When I was publishing <a href="/posts/2026-10-19-DejaReview/">DejaReview</a> to the VS Code Marketplace, I wanted a short demo video for it, and also a GIF for the Marketplace page. I never made such videos before, and editing a video by hand, with all the cutting, subtitles and &quot;so yeah&quot; and &quot;basically&quot; from my live talking, did not look very attractive.</p>
+<p>So I asked an AI agent to do all of it: transcribe my voice, decide what to cut, rewrite my narration into clean sentences, generate a new voice, burn in subtitles and render the final video. All the video tools ran locally on my Mac and were free. A 9 minutes recording became a 4 minutes video, and it took about 45 minutes after the recording was finished.</p>
+<p>In this article I want to describe how it went, which tools were used, and what I learned.<!--cut--></p>
+<p>Here is the result:</p>
+<p><awesome-youtube data-youtubeid="zY4tU0eC6zQ" data-wide></awesome-youtube></p>
+<p>All of it happened on October 29, 2026, in one <a href="https://opencode.ai">OpenCode</a> session with the Claude Opus 5.5 model.</p>
+<h2 id="real-work-as-a-demo">Real work as a demo</h2>
+<p>I did not want to make fake changes just for the demo, so the video shows a real task: the last preparations for the Marketplace release. The notes in the video are real too: use my real publisher ID everywhere, replace a TODO in the README with a demo GIF, and add a link to Github issues to the changelog. And the agent which works on them at the end of the video made real changes, which went into the published version.</p>
+<h2 id="shooting-script">Shooting script</h2>
+<p>Then I asked the agent for a shooting script. For each scene it had what to do, what to say and the exact text to type into notes, with file names and line numbers.</p>
+<p>I recorded my screen with the standard macOS recorder, talking while clicking. The script was planned for about 3 minutes, but the recording took 9 minutes and 6 seconds. I did not follow the script exactly: I showed some extra things which were not planned, waited for the agent, moved the mouse around a lot and opened some menus for no reason.</p>
+<h2 id="the-plan">The plan</h2>
+<p>Then I asked if it is possible to extract my voice, make subtitles, cut long and repetitive parts, and replace my voice with an AI generated one. The agent proposed this:</p>
+<ol>
+<li>Extract the voice track with ffmpeg.</li>
+<li>Transcribe it to text with timestamps with Whisper.</li>
+<li>Decide what to cut and what to speed up.</li>
+<li>Rewrite the narration into clean sentences.</li>
+<li>Generate a new voice from this text.</li>
+<li>Render the video with burned-in subtitles and the new voice.</li>
+</ol>
+<p>For the voice there were several options: local free models like Kokoro or Piper, OpenAI text-to-speech (cheap, and only the text is sent), ElevenLabs with a clone of my own voice (paid, and a sample of my voice has to be uploaded), and the built-in macOS <code>say</code> command. The agent also mentioned Descript, an app which does all of it, but it is paid and uploads the video to its cloud.</p>
+<p>I chose the easiest option to start with, Kokoro. I don't know much about the differences between all these voices, so there was a good chance that the first approach would be good enough. And in such tasks you usually want to try them all and compare anyway, so the voice can still be regenerated later.</p>
+<h2 id="tools-setup">Tools setup</h2>
+<p>First of all, ffmpeg from Homebrew can't burn in subtitles, because it is built without libass, the library for drawing subtitles. So the agent installed <code>ffmpeg-full</code>, a separate Homebrew package with everything included. Installing it upgraded a shared library for H.265 encoding, and the regular <code>ffmpeg</code> stopped working with &quot;Library not loaded&quot;. The agent noticed it and fixed it with <code>brew upgrade ffmpeg</code>.</p>
+<p>The Python tools went into a separate environment, created by <a href="https://docs.astral.sh/uv/">uv</a> with Python 3.12, because the system Python on my Mac is 3.9.</p>
+<h2 id="transcribing">Transcribing</h2>
+<p>For speech recognition the agent used <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a>, a version of OpenAI Whisper for Apple Silicon, with the <code>whisper-large-v3-turbo</code> model. It transcribed 9 minutes of audio in about a minute.</p>
+<p>The quality was good, but with some funny mistakes. Here is a raw piece:</p>
+<pre><code class="language-text">0:34  if I start with Packages on, I see
+0:50  so I can now lift for agent the node use my real ID and update it everywhere
+1:06  and that's basically node I add the node so now you can see it's appeared here
+</code></pre>
+<p>&quot;Note&quot; was &quot;node&quot; almost every time, <code>package.json</code> became &quot;Packages on&quot;, <code>docs/images</code> became &quot;doximages&quot;, and &quot;the review panel&quot; became &quot;Azure View Panel&quot;. And where I was silently typing, Whisper wrote &quot;that's it&quot; again and again, about 40 times, together with a lot of empty lines. This is a known problem of Whisper with silence.</p>
+<p>Before going further I asked to see the transcript. The agent showed it grouped by topic, with its guesses of what I actually meant, and noted silent parts, unclear sentences and extra things which were not in the script. Later the agent also tried to give Whisper a hint with product words. It fixed &quot;package.json&quot;, but &quot;note&quot; still stayed &quot;node&quot;.</p>
+<h2 id="how-an-ai-agent-watches-a-video">How an AI agent watches a video</h2>
+<p>This was the most interesting part for me. The agent can't watch a video, but it can look at images. So it made contact sheets: one frame every 5 seconds with a timestamp, 24 frames in one image. Here is the first one, the first two minutes of my recording:</p>
+<p><img src="images/contact-sheet.jpg" alt="Contact sheet with frames of the first two minutes of the recording"></p>
+<p>Already from this sheet it is visible that the first 20 seconds are an empty editor, and around 1:40 again nothing happens. For the busy parts the agent made more detailed sheets with one frame per second. Also it wrote a small script which counts changed pixels between frames, to find stretches where nothing happens on the screen.</p>
+<h2 id="edit-plan-and-narration">Edit plan and narration</h2>
+<p>Then the agent wrote an edit plan: 23 lines of narration, each one tied to a range of the recording with a speed. The narration kept my meaning, but in normal sentences. For example, my &quot;so I can now lift for agent the node use my real ID and update it everywhere&quot; became:</p>
+<blockquote>
+<p>So I leave a note for the agent: use my real ID, OleksandrBoiko, and update it everywhere.</p>
+</blockquote>
+<h2 id="ai-voice">AI voice</h2>
+<p>For the voice the agent used <a href="https://huggingface.co/hexgrad/Kokoro-82M">Kokoro</a>, a small open text-to-speech model with 82 million parameters, through the <a href="https://github.com/thewh1teagle/kokoro-onnx">kokoro-onnx</a> package. The model file is about 310 MB and the voices are 27 MB more. It is free and works offline.</p>
+<p>The agent generated the same sentence with several voices: three male voices (American Michael and Adam, British George), a female voice Heart, and the built-in macOS voice for comparison. I liked Michael, but asked him to talk about 30% faster, so the speed was set to 1.3.</p>
+<p>Some words needed help with pronunciation. So there is a small map of replacements, which is applied only to the text for the voice, while subtitles keep the normal spelling:</p>
+<pre><code class="language-json">&quot;spoken&quot;: {
+  &quot;DejaReview&quot;: &quot;Deja Review&quot;,
+  &quot;package.json&quot;: &quot;package dot JSON&quot;,
+  &quot;AGENTS.md&quot;: &quot;agents dot M D&quot;,
+  &quot;VS Code&quot;: &quot;V S Code&quot;
+}
+</code></pre>
+<h2 id="first-draft">First draft</h2>
+<p>The first render was 5:32 long with a lot of silence, because the faster voice was shorter than the clips under it. So the agent sped up each clip to the length of its narration: typing 4 to 7 times, staging about 6 times, the agent's work about 7 times. The result was 3:12.</p>
+<p>While checking frames, the agent also found that subtitles on a semi-transparent background were hard to read over code, and changed them to white text on an almost opaque dark box.</p>
+<p>The draft was ready about 25 minutes after I asked about editing, and it was actually already quite good. But at high speed all my mouse wandering and toggling menus back and forth looked frantic, and did not show anything useful.</p>
+<h2 id="cut-dont-speed-up">Cut, don't speed up</h2>
+<p>So I asked to cut such pieces instead. The agent went through the busy parts second by second and kept only moments where something really happens. Now each narration line plays over one to six short pieces of footage, 48 pieces in total, and everything between them is cut: pauses, hovering over the file list, a menu opened by accident, searching in the Source Control view, a microphone permission popup and most of the agent's working time.</p>
+<p>The speeds also became much calmer:</p>
+<ul>
+<li>Real actions are at normal speed: clicking <code>+</code>, a note appearing, a file leaving the list, the notification after copying.</li>
+<li>Typing is 3 to 5 times faster.</li>
+<li>Staging and pasting are 1.5 times faster.</li>
+<li>Checking the agent's results is 1.25 times faster.</li>
+</ul>
+<p>The video is never slower than real time. If the voice is longer than its footage, the last frame just stays on the screen until the sentence ends.</p>
+<p>Here is how one narration line looks in the edit plan, with three pieces of the original recording and their speeds:</p>
+<pre><code class="language-json">{&quot;text&quot;: &quot;So I leave a note for the agent: use my real ID, OleksandrBoiko, and update it everywhere.&quot;,
+ &quot;parts&quot;: [[&quot;0:47&quot;, &quot;0:50&quot;, 1], [&quot;0:50&quot;, &quot;1:08&quot;, 3], [&quot;1:08&quot;, &quot;1:10&quot;, 1]]}
+</code></pre>
+<p>The agent also rewrote some narration to match what is really on the screen. For example, in the script I planned to stage <code>AGENTS.md</code>, but in the video I staged <code>.vscodeignore</code>, so the text was changed. And it fixed subtitles which were split badly, like &quot;...back in Files to&quot; and &quot;Review.&quot; on two separate lines.</p>
+<p>The second version is 4:03. It is longer than the first draft, but much easier to watch, and this is the one on YouTube.</p>
+<h2 id="where-to-put-a-video">Where to put a video</h2>
+<p>Then a few smaller things came up.</p>
+<p>On Github a video in a README can be uploaded only up to 10 MB on free plans, and mine was 19 MB. The agent explained that H.264 is still the best codec for compatibility, because newer codecs don't play in some browsers, and made a two-pass encode tuned for screen content. It was 8.7 MB, without visible difference in the code text.</p>
+<p>The VS Code Marketplace can't show videos at all, so for the extension page the agent made a 20 seconds GIF with three numbered steps: leave a note, stage, copy. There was a funny bug: the first GIF was 27 MB, because one piece of it was 5 minutes long instead of 6 seconds. ffmpeg inside a shell loop was reading from the standard input and swallowed the list of pieces. The fix was the <code>-nostdin</code> flag.</p>
+<p>For this blog Github is not an option, because its videos are not meant to be embedded on other websites, so the video went to YouTube. The agent prepared a version without burned-in subtitles and a separate subtitles file, but in the end YouTube's automatic captions were good enough, so I did not bother.</p>
+<p>The next day I noticed that YouTube played the video in 240p by default, even in full screen with a fast connection. 720p was there and looked good, but only when chosen manually. The recording is 874 pixels high, so YouTube made qualities only up to 720p, and in an odd mix: some of them only in H.264 and some only in AV1. &quot;Stats for nerds&quot; showed that the player aimed for 360p, but my browser plays AV1, which had no 360p, so it fell down to 240p. The solution was to scale the video up to 2560×1600 (1440p) with ffmpeg and upload it again. Scaling up does not add any detail, but YouTube seems to treat high resolution uploads differently: the new video got every quality from 144p to 1440p, and now plays in 1080p by default and looks much better. The only downside was a new video ID, so I deleted the old video and updated the links.</p>
+<h2 id="a-skill-for-the-next-time">A skill for the next time</h2>
+<p>At the end I asked the agent to turn everything it learned into an OpenCode <a href="https://opencode.ai/v2/docs/skills">skill</a>: a set of instructions, scripts and lessons, which the agent loads automatically when I ask for a video next time. It has scripts for setup, transcription, contact sheets, voice samples and rendering from an edit plan, and a file with lessons, for example to cut fuss instead of speeding it up, and not to put subtitles on a semi-transparent background over code. The agent tested all the scripts on a short clip and found two more bugs in its own code.</p>
+<h2 id="lessons-learned">Lessons learned</h2>
+<ol>
+<li>Use a real task for the demo. Then the video, the GIF and the release preparation are the same work, and the changes made by the agent in the video are in the published extension.</li>
+<li>While recording, avoid unnecessary mouse moves, scrolls, clicks and fidgeting with the UI. Move the mouse smoothly, and when you are thinking or waiting for something, just keep the screen still. Then all these delays can be easily cut out or sped up without any fuss.</li>
+<li>Speeding up boring parts is not enough, they should be cut. A longer video without fuss looks better than a shorter and faster one.</li>
+<li>An AI agent can't watch a video, but grids of frames and pixel statistics are enough for it to find cut points with one second precision.</li>
+<li>Local tools are good enough. Whisper transcribed 9 minutes in about a minute, and the Kokoro voice is free and works offline. The video itself was not uploaded anywhere, only the transcript and frame images went to the AI model.</li>
+<li>Whisper mishears product words, and a hint does not fix all of them (&quot;note&quot; still stayed &quot;node&quot;). So it is worth reading the transcript before editing.</li>
+<li>The agent can't listen to its own video. It checked everything with frames, and every time it honestly said that I should watch the result with sound myself.</li>
+<li>For YouTube, upload a screen recording scaled up to 1440p, even if the original is smaller. Otherwise YouTube may play it in 240p by default, see the end of &quot;Where to put a video&quot;.</li>
+</ol>
+<p>From the first message about the video to the accepted second version it took about an hour and a half, including the script and the recording.</p>
+<p>P.S. This article was generated by AI from the history of that session, and then reviewed and edited by me, of course with <a href="https://marketplace.visualstudio.com/items?itemName=OleksandrBoiko.dejareview">DejaReview</a>.</p>
+
+</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <span>© Copyright 2026, </span>
+                <a href="/">Oleksandr Boiko</a>.
+                <span>The website content is licensed </span>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+            <p>
+                <span>This website counts page views with </span>
+                <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>
+                <span> and </span>
+                <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>,
+                <span>without cookies.</span>
+            </p>
+        </div>
+    </footer>
+
+    
+    <script data-goatcounter="https://olekboiko.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c73b6afc05f4452c933e9d758c8ac670"}'></script>
+    
+</body>
+
+</html>
